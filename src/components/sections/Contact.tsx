@@ -3,10 +3,12 @@ import { Button } from "../ui/Button";
 import { useI18n } from "../../lib/i18n";
 
 export function Contact() {
-  const { t } = useI18n();
+	const { t } = useI18n();
 	return (
 		<section id="contact" className="container py-20" data-animate>
-			<Heading level={2} className="mb-6">{t("contact")}</Heading>
+			<Heading level={2} className="mb-6">
+				{t("contact")}
+			</Heading>
 			<form className="grid md:grid-cols-2 gap-4 max-w-2xl">
 				<input
 					className="rounded-[var(--radius-md)] bg-white text-black placeholder:text-black/60 border border-foreground/20 px-3 py-2"

@@ -10,10 +10,12 @@ const tracks = [
 ];
 
 export function Music() {
-  const { t } = useI18n();
+	const { t } = useI18n();
 	return (
 		<section id="music" className="container py-20" data-animate>
-			<Heading level={2} className="mb-8">{t("music")}</Heading>
+			<Heading level={2} className="mb-8">
+				{t("music")}
+			</Heading>
 			<div className="grid md:grid-cols-3 gap-6">
 				{tracks.map((t, idx) => (
 					<motion.a

@@ -10,10 +10,12 @@ const socials = [
 ];
 
 export function Social() {
-  const { t } = useI18n();
+	const { t } = useI18n();
 	return (
 		<section id="social" className="container py-20" data-animate>
-			<Heading level={2} className="mb-6">{t("social_networks")}</Heading>
+			<Heading level={2} className="mb-6">
+				{t("social_networks")}
+			</Heading>
 			<div className="flex gap-4">
 				{socials.map(({ name, href, Icon }) => (
 					<a
