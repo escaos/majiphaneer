@@ -21,12 +21,7 @@
 		}
 	},
 	"files": {
-		"includes": [
-			"**/*",
-			"!!**/.vercel",
-			"!!**/dist",
-			"!!**/.astro"
-		],
+		"includes": ["**/*", "!!**/.vercel", "!!**/dist", "!!**/.astro"],
 		"ignoreUnknown": false
 	}
 }

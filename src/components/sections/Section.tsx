@@ -5,7 +5,7 @@ export function Section({
   children,
 }: Readonly<{ id: string; children: React.ReactNode }>) {
   return (
-    <section id={id} className="container py-20" data-animate>
+    <section id={id} className="relative container py-20" data-animate>
       {children}
     </section>
   );
