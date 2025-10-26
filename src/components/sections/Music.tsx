@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardDescription, CardTitle } from "../ui/Card";
 import { Heading } from "../ui/Heading";
+import { useI18n } from "../../lib/i18n";
 
 const tracks = [
 	{ title: "Aurora", desc: "Ambient electronica, 2025", link: "#" },
@@ -9,11 +10,10 @@ const tracks = [
 ];
 
 export function Music() {
+  const { t } = useI18n();
 	return (
 		<section id="music" className="container py-20" data-animate>
-			<Heading level={2} className="mb-8">
-				Music
-			</Heading>
+			<Heading level={2} className="mb-8">{t("music")}</Heading>
 			<div className="grid md:grid-cols-3 gap-6">
 				{tracks.map((t, idx) => (
 					<motion.a

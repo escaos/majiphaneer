@@ -3,20 +3,23 @@ import Layout from "../layouts/Layout.astro";
 import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
 import { Hero } from "../components/sections/Hero";
-import { Music } from "../components/sections/Music";
-import { Books } from "../components/sections/Books";
+// New sections after Hero
+import { About } from "../sections/About";
+import { BookContravia } from "../sections/BookContravia";
+import { Blog } from "../sections/Blog";
+import { Projects } from "../sections/Projects";
 import { Contact } from "../components/sections/Contact";
-import { Social } from "../components/sections/Social";
 ---
 
 <Layout title="Maji — Landing">
   <Header client:load />
   <main>
     <Hero client:visible />
-    <Music client:visible />
-    <Books client:visible />
+    <About client:visible />
+    <BookContravia client:visible />
+    <Blog client:visible />
+    <Projects client:visible />
     <Contact client:visible />
-    <Social client:visible />
   </main>
   <Footer client:idle />
 </Layout>

@@ -1,19 +1,19 @@
 import { motion } from "framer-motion";
 import { Card, CardDescription, CardTitle } from "../ui/Card";
 import { Heading } from "../ui/Heading";
+import { useI18n } from "../../lib/i18n";
 
 const books = [
-	{ title: "Midnight Notes", desc: "Poetry collection", link: "#" },
-	{ title: "Silent Rooms", desc: "Short stories", link: "#" },
-	{ title: "Field Recordings", desc: "Essays", link: "#" },
+    { title: "Midnight Notes", desc: "Poetry collection", link: "#" },
+    { title: "Silent Rooms", desc: "Short stories", link: "#" },
+    { title: "Field Recordings", desc: "Essays", link: "#" },
 ];
 
 export function Books() {
+  const { t } = useI18n();
 	return (
 		<section id="books" className="container py-20" data-animate>
-			<Heading level={2} className="mb-8">
-				Books
-			</Heading>
+			<Heading level={2} className="mb-8">{t("books")}</Heading>
 			<div className="grid md:grid-cols-3 gap-6">
 				{books.map((b, idx) => (
 					<motion.a
