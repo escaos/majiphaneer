@@ -1,0 +1,12 @@
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      run: .lefthook/format-stage
+    lint:
+      run: .lefthook/lint-stage
+
+pre-push:
+  commands:
+    build:
+      run: npm run build

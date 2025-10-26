@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+FILES=$(git diff --name-only --cached --diff-filter=ACMRT | grep -E "\.(ts|tsx|astro|js|jsx)$" || true)
+[ -z "$FILES" ] && exit 0
+npx biome lint $FILES
