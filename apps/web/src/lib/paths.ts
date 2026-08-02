@@ -4,6 +4,7 @@ import { DEFAULT_LOCALE, LOCALES, type Locale, type PageId } from '@majiphaneer/
 // lives unprefixed at the domain root, others under /en /fr /de.
 export const PAGE_SLUGS: Record<PageId, string> = {
   home: '',
+  about: 'about',
   contravia: 'contravia',
   books: 'books',
   music: 'music',

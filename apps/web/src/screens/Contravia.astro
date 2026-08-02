@@ -26,9 +26,9 @@ const availablePlatforms = platforms.filter((p) => p.url !== '');
 
 <Base locale={locale} page="contravia" jsonLd={[podcastJsonLd(origin, locale)]}>
   <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
-    <div>
+    <div class="reveal">
       <h1 class="text-4xl">{contravia.title}</h1>
-      <p class="mt-4 font-display text-2xl text-secondary">{contravia.tagline}</p>
+      <p class="mt-4 font-serif text-2xl italic text-secondary">{contravia.tagline}</p>
       {contravia.description.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
       {
         availablePlatforms.length > 0 && (
@@ -53,7 +53,7 @@ const availablePlatforms = platforms.filter((p) => p.url !== '');
       widths={[480, 800]}
       sizes="(min-width: 768px) 40vw, 100vw"
       loading="eager"
-      class="h-auto w-full self-start rounded-xl"
+      class="reveal reveal-d1 h-auto w-full self-start rounded-2xl"
     />
   </section>
 

@@ -47,8 +47,8 @@ describe('content parity across locales', () => {
     const c = CONTENT[locale];
     expect(c.home.heroIntro).toHaveLength(source.home.heroIntro.length);
     expect(c.home.welcome).toHaveLength(source.home.welcome.length);
-    expect(c.home.aboutIntro).toHaveLength(source.home.aboutIntro.length);
-    expect(c.home.story).toHaveLength(source.home.story.length);
+    expect(c.about.intro).toHaveLength(source.about.intro.length);
+    expect(c.about.story).toHaveLength(source.about.story.length);
     expect(c.books.book.synopsis).toHaveLength(source.books.book.synopsis.length);
     expect(c.contravia.description).toHaveLength(source.contravia.description.length);
     expect(c.music.intro).toHaveLength(source.music.intro.length);
@@ -65,9 +65,9 @@ describe('content parity across locales', () => {
     const required = [
       c.home.heroTitle,
       c.home.welcomeTitle,
-      c.home.aboutTitle,
-      c.home.storyTitle,
-      c.home.mediaTitle,
+      c.about.title,
+      c.about.storyTitle,
+      c.about.mediaTitle,
       c.books.title,
       c.books.book.title,
       c.books.book.tagline,
@@ -82,8 +82,8 @@ describe('content parity across locales', () => {
       c.contact.invitationsTagline,
       ...c.home.heroIntro,
       ...c.home.welcome,
-      ...c.home.aboutIntro,
-      ...c.home.story,
+      ...c.about.intro,
+      ...c.about.story,
       ...c.books.book.synopsis,
       ...c.contravia.description,
       ...c.contact.description,
@@ -134,7 +134,7 @@ describe('pending fields are honest', () => {
     ]) {
       expect(typeof value).toBe('string');
     }
-    expect(Array.isArray(c.home.media)).toBe(true);
+    expect(Array.isArray(c.about.media)).toBe(true);
     expect(Array.isArray(c.books.book.reviews)).toBe(true);
     expect(Array.isArray(c.contravia.episodes)).toBe(true);
     expect(Array.isArray(c.music.intro)).toBe(true);

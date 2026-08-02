@@ -7,6 +7,11 @@ export const de: SiteContent = {
       description:
         'Mit Überzeugung leben in einer Welt, die uns ständig einlädt, mit dem Strom zu schwimmen. Gespräche, Lehren und Ressourcen, um tief zu denken und mit Sinn zu leben.',
     },
+    about: {
+      title: 'Über Maji — Maji Phaneer',
+      description:
+        'Die Geschichte von Maji Phaneer: ihre Berufung, ihr Glaube und wie Contravía entstand.',
+    },
     contravia: {
       title: 'Contravía Podcast — Maji Phaneer',
       description:
@@ -47,8 +52,10 @@ export const de: SiteContent = {
       'Danke, dass du hier bist.',
     ],
     welcomeVideoUrl: '',
-    aboutTitle: 'Über mich',
-    aboutIntro: [
+  },
+  about: {
+    title: 'Über mich',
+    intro: [
       'Ich habe immer eine tiefe Leidenschaft dafür empfunden, Ideen zu vermitteln, die Veränderung bewirken.',
       'Im Laufe der Jahre habe ich verstanden, dass Menschen nicht nur mehr Informationen brauchen; sie brauchen ehrliche Gespräche, schwierige Fragen und solide Prinzipien, die ihnen helfen, die Komplexität des Lebens zu meistern.',
       'Mein Weg war voller Lektionen, Herausforderungen und Momente, die meinen Charakter geformt und meine Überzeugung gestärkt haben, dass die tiefsten Wahrheiten relevant bleiben – auch in einer Kultur, die sich ständig verändert.',

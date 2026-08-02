@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import { getContent, type Locale, t } from '@majiphaneer/data';
+import Base from '../layouts/Base.astro';
+import { personJsonLd } from '../lib/jsonld.ts';
+import { photoById } from '../lib/photos.ts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { about } = getContent(locale);
+const portrait = photoById('floor-thoughtful');
+const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
+---
+
+<Base locale={locale} page="about" jsonLd={[personJsonLd(origin, locale)]}>
+  <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
+    <div class="reveal">
+      <h1 class="text-4xl">{about.title}</h1>
+      {about.intro.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
+    </div>
+    <Image
+      src={portrait.image}
+      alt={portrait.alt[locale]}
+      widths={[480, 800]}
+      sizes="(min-width: 768px) 40vw, 100vw"
+      loading="eager"
+      class="reveal reveal-d1 h-auto w-full self-start rounded-2xl"
+    />
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pt-16">
+    <div class="reveal rounded-2xl bg-soft px-6 py-10 sm:px-10">
+      <h2 class="text-3xl">{about.storyTitle}</h2>
+      {about.story.map((paragraph) => <p class="mt-5 max-w-3xl text-ink/80">{paragraph}</p>)}
+    </div>
+  </section>
+
+  {
+    about.media.length > 0 && (
+      <section class="mx-auto max-w-5xl px-4 pt-16">
+        <h2 class="reveal text-3xl">{about.mediaTitle}</h2>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+          {about.media.map((item) => (
+            <li class="reveal rounded-2xl border border-border p-5">
+              <p class="text-sm uppercase tracking-wide text-muted">{item.outlet}</p>
+              <p class="mt-1">{item.title}</p>
+              <a href={item.url} rel="noopener" class="mt-2 inline-block text-sm text-secondary">
+                {t(locale, 'media.view')}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Base>

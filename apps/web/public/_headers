@@ -2,6 +2,10 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Self-hosted font subsets change ~never.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Belt-and-suspenders with the host-guarded robots.txt: the workers.dev
 # fallback host must never be indexed.
 https://majiphaneer.workers.dev/*

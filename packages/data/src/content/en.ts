@@ -7,6 +7,10 @@ export const en: SiteContent = {
       description:
         'Living with conviction in a world that constantly invites us to drift with the current. Conversations, teachings, and resources for thinking deeply and living with purpose.',
     },
+    about: {
+      title: 'About Maji — Maji Phaneer',
+      description: 'The story of Maji Phaneer: her calling, her faith, and why Contravía was born.',
+    },
     contravia: {
       title: 'Contravía Podcast — Maji Phaneer',
       description:
@@ -47,8 +51,10 @@ export const en: SiteContent = {
       'Thank you for being here.',
     ],
     welcomeVideoUrl: '',
-    aboutTitle: 'About me',
-    aboutIntro: [
+  },
+  about: {
+    title: 'About me',
+    intro: [
       'I have always felt a deep passion for communicating ideas that bring transformation.',
       'Over the years I came to understand that people do not merely need more information; they need honest conversations, hard questions, and solid principles to help them navigate the complexity of life.',
       'My journey has been full of lessons, challenges, and moments that have shaped my character and strengthened my conviction that the deepest truths remain relevant, even in a culture that changes constantly.',

@@ -1,5 +1,30 @@
 @import 'tailwindcss';
 
+/* Self-hosted subset woff2 (per performance rules): display titles use an
+   Akira-Expanded-style face — Archivo Expanded Black (OFL). If a licensed
+   Akira Expanded woff2 is purchased later, drop it in public/fonts/ and
+   update this src only. Body text is Plus Jakarta Sans (variable, OFL). */
+@font-face {
+  font-family: 'Display';
+  font-style: normal;
+  font-weight: 900;
+  font-stretch: 125%;
+  font-display: swap;
+  src: url('/fonts/archivo-expanded-black.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/plus-jakarta-sans.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* Palette from the approved design system ("Paleta de colores para página web").
    Light values are the originals; dark values are derived equivalents in the
    same calm hue family. data-theme is stamped on <html> before first paint. */
@@ -43,7 +68,8 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-on-accent: var(--on-accent);
-  --font-display: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+  --font-display: 'Display', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -62,8 +88,10 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.15;
     text-wrap: balance;
   }
 
@@ -83,6 +111,38 @@
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
     }
+  }
+}
+
+/* Scroll-reveal: hidden state applies ONLY when JS is present (html[data-js]
+   is stamped by the inline head script), so no-JS visitors and crawlers see
+   everything. Reduced-motion users get content with no movement. */
+html[data-js] .reveal {
+  opacity: 0;
+  translate: 0 28px;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-js] .reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+html[data-js] .reveal-d1 {
+  transition-delay: 0.15s;
+}
+
+html[data-js] .reveal-d2 {
+  transition-delay: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-js] .reveal {
+    opacity: 1;
+    translate: none;
+    transition: none;
   }
 }
 

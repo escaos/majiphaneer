@@ -5,6 +5,7 @@ import type { Locale } from '../locales.ts';
 // throws at build time as a second line of defense (no silent fallback).
 const es = {
   'nav.home': 'Inicio',
+  'nav.about': 'Sobre Maji',
   'nav.contravia': 'Contravía',
   'nav.books': 'Libros',
   'nav.music': 'Música',
@@ -15,6 +16,7 @@ const es = {
   'cta.book': 'Descubre el libro',
   'cta.podcast': 'Escucha el podcast',
   'cta.invite': 'Invítame a tu evento',
+  'cta.explore': 'Descubrir',
   'theme.toggle': 'Cambiar tema',
   'lang.label': 'Idioma',
   'skip.content': 'Saltar al contenido',
@@ -37,6 +39,7 @@ export type UiKey = keyof typeof es;
 
 const en: Record<UiKey, string> = {
   'nav.home': 'Home',
+  'nav.about': 'About Maji',
   'nav.contravia': 'Contravía',
   'nav.books': 'Books',
   'nav.music': 'Music',
@@ -47,6 +50,7 @@ const en: Record<UiKey, string> = {
   'cta.book': 'Discover the book',
   'cta.podcast': 'Listen to the podcast',
   'cta.invite': 'Invite me to your event',
+  'cta.explore': 'Discover',
   'theme.toggle': 'Toggle theme',
   'lang.label': 'Language',
   'skip.content': 'Skip to content',
@@ -67,6 +71,7 @@ const en: Record<UiKey, string> = {
 
 const fr: Record<UiKey, string> = {
   'nav.home': 'Accueil',
+  'nav.about': 'À propos de Maji',
   'nav.contravia': 'Contravía',
   'nav.books': 'Livres',
   'nav.music': 'Musique',
@@ -77,6 +82,7 @@ const fr: Record<UiKey, string> = {
   'cta.book': 'Découvrez le livre',
   'cta.podcast': 'Écoutez le podcast',
   'cta.invite': 'Invitez-moi à votre événement',
+  'cta.explore': 'Découvrir',
   'theme.toggle': 'Changer de thème',
   'lang.label': 'Langue',
   'skip.content': 'Aller au contenu',
@@ -97,6 +103,7 @@ const fr: Record<UiKey, string> = {
 
 const de: Record<UiKey, string> = {
   'nav.home': 'Startseite',
+  'nav.about': 'Über Maji',
   'nav.contravia': 'Contravía',
   'nav.books': 'Bücher',
   'nav.music': 'Musik',
@@ -107,6 +114,7 @@ const de: Record<UiKey, string> = {
   'cta.book': 'Das Buch entdecken',
   'cta.podcast': 'Den Podcast anhören',
   'cta.invite': 'Lade mich zu deinem Event ein',
+  'cta.explore': 'Entdecken',
   'theme.toggle': 'Farbschema wechseln',
   'lang.label': 'Sprache',
   'skip.content': 'Zum Inhalt springen',

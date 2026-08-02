@@ -1,0 +1,13 @@
+---
+import type { Locale } from '@majiphaneer/data';
+import { localeStaticPaths } from '../../lib/paths.ts';
+import Screen from '../../screens/About.astro';
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const locale = Astro.params.lang as Locale;
+---
+
+<Screen locale={locale} />

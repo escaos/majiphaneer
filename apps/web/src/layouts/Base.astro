@@ -34,7 +34,8 @@ const OG_LOCALES: Record<Locale, string> = { es: 'es_ES', en: 'en_US', fr: 'fr_F
 // Stamps data-theme on <html> before first paint. The brand palette (light)
 // is ALWAYS the first-visit default — dark is explicit opt-in via the toggle
 // only, so the design-system colors are what every new visitor sees.
-const themeScript = `(()=>{try{var t=localStorage.getItem('${THEME_KEY}');document.documentElement.dataset.theme=t==='dark'?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}})()`;
+// data-js gates the scroll-reveal hidden state: no JS → nothing ever hides.
+const themeScript = `(()=>{var d=document.documentElement;d.dataset.js='1';try{var t=localStorage.getItem('${THEME_KEY}');d.dataset.theme=t==='dark'?'dark':'light'}catch(e){d.dataset.theme='light'}})()`;
 
 const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
 ---
@@ -51,6 +52,20 @@ const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
     {!noindex && alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
     {!noindex && <link rel="alternate" hreflang="x-default" href={xDefault} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/archivo-expanded-black.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/plus-jakarta-sans.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={meta.title} />
@@ -82,5 +97,27 @@ const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
       <slot />
     </main>
     <Footer locale={locale} />
+    <script>
+      // Scroll-reveal: flips .reveal elements visible as they enter the
+      // viewport. Reduced-motion (and any observer failure) shows everything.
+      const els = document.querySelectorAll('.reveal');
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduced && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -48px' },
+        );
+        for (const el of els) io.observe(el);
+      } else {
+        for (const el of els) el.classList.add('is-visible');
+      }
+    </script>
   </body>
 </html>

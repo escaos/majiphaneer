@@ -32,12 +32,12 @@ export interface PageMeta {
   description: string;
 }
 
-export type PageId = 'home' | 'contravia' | 'books' | 'music' | 'gallery' | 'contact';
+export type PageId = 'home' | 'about' | 'contravia' | 'books' | 'music' | 'gallery' | 'contact';
 
 export interface SiteContent {
   meta: Record<PageId, PageMeta>;
-  // The home page is a single long page holding the document's sections:
-  // hero, welcome, "Acerca de mí", "Mi historia", "En los medios".
+  // The home page is visual: hero + short welcome + photo sections with short
+  // phrases that open the side pages. Long texts live on the side pages.
   home: {
     heroTitle: string;
     heroIntro: string[];
@@ -45,8 +45,10 @@ export interface SiteContent {
     welcome: string[];
     /** PENDING: 1–2 minute welcome video URL. */
     welcomeVideoUrl: string;
-    aboutTitle: string;
-    aboutIntro: string[];
+  };
+  about: {
+    title: string;
+    intro: string[];
     storyTitle: string;
     story: string[];
     mediaTitle: string;
