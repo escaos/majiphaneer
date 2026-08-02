@@ -15,6 +15,13 @@ export const ICONS = {
   users:
     '<circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 20H21a5 5 0 0 0-4-4.9"/>',
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  instagram:
+    '<rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/>',
+  facebook:
+    '<circle cx="12" cy="12" r="9"/><path d="M14.8 8h-1.6c-.9 0-1.5.6-1.5 1.5V11h3l-.4 2.6h-2.6V20"/>',
+  tiktok: '<path d="M14 4v9.5a3.8 3.8 0 1 1-3.8-3.8"/><path d="M14 5.5c.7 2 2.2 3.3 4.3 3.6"/>',
+  spotify:
+    '<circle cx="12" cy="12" r="9"/><path d="M7.5 10.3c3-.9 6.4-.5 9 1M8 13.2c2.5-.7 5-.4 7.2.9M8.6 16c2-.5 3.9-.2 5.6.8"/>',
 } as const;
 
 export type IconName = keyof typeof ICONS;

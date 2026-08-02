@@ -13,6 +13,7 @@ interface Props {
 const { locale } = Astro.props;
 const { contact } = getContent(locale);
 const portrait = photoById('suit-standing');
+const activeSocials = contact.socials.filter((social) => social.url !== '');
 ---
 
 <Base locale={locale} page="contact">
@@ -35,9 +36,9 @@ const portrait = photoById('suit-standing');
       }
 
       {
-        contact.socials.length > 0 && (
+        activeSocials.length > 0 && (
           <ul class="mt-6 flex flex-wrap gap-3">
-            {contact.socials.map((social) => (
+            {activeSocials.map((social) => (
               <li>
                 <a
                   href={social.url}

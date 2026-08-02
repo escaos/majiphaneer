@@ -1,6 +1,9 @@
 ---
 import { getContent, type Locale, SITE_NAME, t } from '@majiphaneer/data';
-import { pagePath } from '../lib/paths.ts';
+import type { IconName } from '../lib/icons.ts';
+import { NAV_KEYS } from '../lib/nav.ts';
+import { PAGE_IDS, pagePath } from '../lib/paths.ts';
+import Icon from './Icon.astro';
 
 interface Props {
   locale: Locale;
@@ -9,50 +12,105 @@ interface Props {
 const { locale } = Astro.props;
 const { contact } = getContent(locale);
 
-const quickLinks = [
-  { href: pagePath(locale, 'home'), label: t(locale, 'nav.home') },
-  { href: pagePath(locale, 'contravia'), label: t(locale, 'nav.contravia') },
-  { href: pagePath(locale, 'books'), label: t(locale, 'nav.books') },
-  { href: pagePath(locale, 'contact'), label: t(locale, 'nav.contact') },
+const sections = PAGE_IDS.map((id) => ({
+  href: pagePath(locale, id),
+  label: t(locale, NAV_KEYS[id]),
+}));
+
+const actions = [
+  { href: `${pagePath(locale, 'contact')}#invitations`, label: t(locale, 'action.invite') },
+  { href: pagePath(locale, 'books'), label: t(locale, 'action.book') },
+  { href: pagePath(locale, 'contravia'), label: t(locale, 'action.podcast') },
 ];
+
+const SOCIAL_ICONS: Record<string, IconName> = {
+  instagram: 'instagram',
+  facebook: 'facebook',
+  tiktok: 'tiktok',
+  spotify: 'spotify',
+};
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-border bg-alt">
-  <div class="mx-auto grid max-w-5xl gap-6 px-4 py-10 sm:grid-cols-3">
-    <div>
-      <p class="font-display text-sm uppercase tracking-widest">{SITE_NAME}</p>
-      <p class="mt-2 font-serif text-sm italic text-muted">{t(locale, 'footer.tagline')}</p>
-    </div>
-    <nav aria-label={t(locale, 'nav.home')}>
-      <ul class="grid gap-1 text-sm">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-3">
+    <nav aria-label={t(locale, 'footer.sections')}>
+      <h2 class="text-sm tracking-widest">{t(locale, 'footer.sections')}</h2>
+      <ul class="mt-4 grid gap-2 text-sm">
         {
-          quickLinks.map((link) => (
+          sections.map((section) => (
             <li>
-              <a href={link.href} class="text-muted transition-colors hover:text-ink">
-                {link.label}
+              <a href={section.href} class="text-muted transition-colors hover:text-ink">
+                {section.label}
               </a>
             </li>
           ))
         }
       </ul>
     </nav>
-    <div class="text-sm text-muted sm:text-right">
-      {
-        contact.socials.length > 0 && (
-          <ul class="mb-2 flex gap-3 sm:justify-end">
-            {contact.socials.map((social) => (
-              <li>
-                <a href={social.url} rel="me noopener" class="hover:text-ink">
-                  {social.label}
+
+    <div class="order-first flex flex-col items-center gap-4 text-center sm:order-none">
+      <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+        <rect width="64" height="64" rx="14" class="fill-accent"></rect>
+        <path
+          d="M16 46V18l16 19 16-19v28"
+          fill="none"
+          class="stroke-bg"
+          stroke-width="5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+      <p class="font-display text-sm uppercase tracking-widest">{SITE_NAME}</p>
+      <p class="font-serif text-sm italic text-muted">{t(locale, 'footer.tagline')}</p>
+      <ul class="flex items-center gap-4">
+        {
+          contact.socials.map((social) => (
+            <li>
+              {social.url !== '' ? (
+                <a
+                  href={social.url}
+                  rel="me noopener"
+                  aria-label={social.label}
+                  class="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface hover:text-ink"
+                >
+                  <Icon name={SOCIAL_ICONS[social.id] ?? 'globe'} size={20} />
                 </a>
-              </li>
-            ))}
-          </ul>
-        )
-      }
-      <p>© {year} {SITE_NAME}. {t(locale, 'footer.rights')}</p>
+              ) : (
+                <span
+                  class="inline-flex h-10 w-10 items-center justify-center rounded-full text-muted opacity-40"
+                  title={social.label}
+                >
+                  <Icon name={SOCIAL_ICONS[social.id] ?? 'globe'} size={20} />
+                  <span class="sr-only">{social.label}</span>
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
     </div>
+
+    <nav aria-label={t(locale, 'footer.takeAction')} class="sm:justify-self-end sm:text-right">
+      <h2 class="text-sm tracking-widest">{t(locale, 'footer.takeAction')}</h2>
+      <ul class="mt-4 grid gap-2 text-sm">
+        {
+          actions.map((action) => (
+            <li>
+              <a href={action.href} class="text-muted transition-colors hover:text-ink">
+                {action.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="border-t border-border">
+    <p class="mx-auto max-w-6xl px-4 py-5 text-center text-sm text-muted">
+      © {year}
+      {SITE_NAME}. {t(locale, 'footer.rights')}
+    </p>
   </div>
 </footer>

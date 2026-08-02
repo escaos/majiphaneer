@@ -40,7 +40,7 @@ export const fr: SiteContent = {
     heroTitle:
       'Vivre avec conviction dans un monde qui nous invite constamment à suivre le courant.',
     heroIntro: [
-      'Je suis Maji Phaneer, autrice, communicatrice et conférencière.',
+      'Maji Phaneer, autrice, communicatrice et conférencière.',
       "Je crois que les bonnes conversations peuvent changer notre façon de penser, de vivre et d'affronter les défis de chaque jour. C'est pourquoi j'écris, j'enseigne et je crée des espaces où chacun peut s'arrêter, réfléchir et découvrir des principes capables de transformer sa vie de l'intérieur vers l'extérieur.",
     ],
     welcomeTitle: 'Bienvenue !',
@@ -124,7 +124,12 @@ export const fr: SiteContent = {
       "Ce sera un plaisir d'échanger avec vous.",
     ],
     email: '',
-    socials: [],
+    socials: [
+      { id: 'instagram', label: 'Instagram', url: '' },
+      { id: 'facebook', label: 'Facebook', url: '' },
+      { id: 'tiktok', label: 'TikTok', url: '' },
+      { id: 'spotify', label: 'Spotify', url: '' },
+    ],
     invitationsTitle: 'Invitations',
     invitationsTagline: 'Construisons une conversation qui laisse une empreinte.',
     invitationsDescription: [

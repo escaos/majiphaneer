@@ -40,7 +40,7 @@ export const en: SiteContent = {
     heroTitle:
       'Living with conviction in a world that constantly invites us to drift with the current.',
     heroIntro: [
-      'I am Maji Phaneer — author, communicator, and speaker.',
+      'Maji Phaneer — author, communicator, and speaker.',
       "I believe the right conversations can change the way we think, live, and face each day's challenges. That is why I write, teach, and create spaces where people can pause, reflect, and discover principles capable of transforming their lives from the inside out.",
     ],
     welcomeTitle: 'Welcome!',
@@ -123,7 +123,12 @@ export const en: SiteContent = {
       'It will be a pleasure to connect with you.',
     ],
     email: '',
-    socials: [],
+    socials: [
+      { id: 'instagram', label: 'Instagram', url: '' },
+      { id: 'facebook', label: 'Facebook', url: '' },
+      { id: 'tiktok', label: 'TikTok', url: '' },
+      { id: 'spotify', label: 'Spotify', url: '' },
+    ],
     invitationsTitle: 'Invitations',
     invitationsTagline: "Let's build a conversation that leaves a mark.",
     invitationsDescription: [
