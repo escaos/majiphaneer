@@ -159,19 +159,26 @@ html[data-js] .reveal-d2 {
   }
 }
 
-/* Ken Burns entrance on the hero photo: a slow settle from a gentle zoom.
+/* Ken Burns entrance on the hero photo: fades in while settling from a deep
+   zoom anchored on the subject's face, so the motion is unmistakable.
    The global reduced-motion rule collapses the animation to nothing. */
 @keyframes hero-settle {
   from {
-    scale: 1.12;
+    scale: 1.35;
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
   }
   to {
     scale: 1;
+    opacity: 1;
   }
 }
 
 .hero-img {
-  animation: hero-settle 4.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: 50% 25%;
+  animation: hero-settle 5.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Long image lists render lazily without layout shift. */
