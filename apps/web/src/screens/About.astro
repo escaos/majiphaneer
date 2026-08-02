@@ -31,7 +31,7 @@ const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
     />
   </section>
 
-  <section class="mx-auto max-w-5xl px-4 pt-16">
+  <section class="mx-auto max-w-5xl px-4 py-16">
     <div class="reveal rounded-2xl bg-soft px-6 py-10 sm:px-10">
       <h2 class="text-3xl">{about.storyTitle}</h2>
       {about.story.map((paragraph) => <p class="mt-5 max-w-3xl text-ink/80">{paragraph}</p>)}
@@ -40,7 +40,7 @@ const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
   {
     about.media.length > 0 && (
-      <section class="mx-auto max-w-5xl px-4 pt-16">
+      <section class="mx-auto max-w-5xl px-4 pb-16">
         <h2 class="reveal text-3xl">{about.mediaTitle}</h2>
         <ul class="mt-6 grid gap-4 sm:grid-cols-2">
           {about.media.map((item) => (

@@ -22,7 +22,7 @@ const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
     <h1 class="reveal text-4xl">{books.title}</h1>
   </section>
 
-  <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-8 md:grid-cols-[3fr_2fr]">
+  <section class="mx-auto grid max-w-5xl gap-10 px-4 pb-16 pt-8 md:grid-cols-[3fr_2fr]">
     <div class="reveal">
       <h2 class="text-3xl">{book.title}</h2>
       <p class="mt-4 font-serif text-2xl italic text-secondary">{book.tagline}</p>
@@ -52,7 +52,7 @@ const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
   {
     book.reviews.length > 0 && (
-      <section class="mx-auto max-w-5xl px-4 pt-16">
+      <section class="mx-auto max-w-5xl px-4 pb-16">
         <h2 class="text-3xl">{book.reviewsTitle}</h2>
         <ul class="mt-6 grid gap-4 sm:grid-cols-2">
           {book.reviews.map((review) => (

@@ -14,6 +14,7 @@ export const ICONS = {
     '<path d="M4 15a8 8 0 0 1 16 0"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>',
   users:
     '<circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 20H21a5 5 0 0 0-4-4.9"/>',
+  menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
 } as const;
 
 export type IconName = keyof typeof ICONS;

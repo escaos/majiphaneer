@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getContent, type Locale, t } from '@majiphaneer/data';
+import heroWide from '../assets/photos/LK_01734-wide.jpg';
 import Base from '../layouts/Base.astro';
 import { personJsonLd } from '../lib/jsonld.ts';
 import { pagePath } from '../lib/paths.ts';
@@ -12,7 +13,9 @@ interface Props {
 
 const { locale } = Astro.props;
 const { home, about, contravia, books, music, gallery, contact } = getContent(locale);
-const hero = photoById('denim-laughing');
+// Canvas-extended (zoomed-out) derivative of the profile portrait, built for
+// the wide hero crop; alt text comes from the source photo's record.
+const heroAlt = photoById('profile').alt;
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
 // sarahjakesroberts.com-style home: clean photo hero, statement band, video
@@ -21,10 +24,10 @@ const sections = [
   { href: pagePath(locale, 'about'), photo: photoById('floor-thoughtful'), title: about.title },
   {
     href: pagePath(locale, 'contravia'),
-    photo: photoById('suit-seated'),
+    photo: photoById('denim-laughing'),
     title: contravia.title,
   },
-  { href: pagePath(locale, 'books'), photo: photoById('profile'), title: books.title },
+  { href: pagePath(locale, 'books'), photo: photoById('beige-smile'), title: books.title },
   { href: pagePath(locale, 'music'), photo: photoById('denim-table'), title: music.title },
   { href: pagePath(locale, 'gallery'), photo: photoById('suit-standing'), title: gallery.title },
   {
@@ -38,39 +41,36 @@ const sections = [
 <Base locale={locale} page="home" jsonLd={[personJsonLd(origin, locale)]}>
   <section class="relative h-[58vh] min-h-[420px] overflow-hidden">
     <Image
-      src={hero.image}
-      alt={hero.alt[locale]}
+      src={heroWide}
+      alt={heroAlt[locale]}
       widths={[800, 1400, 2400]}
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
-      class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_18%]"
+      class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_20%]"
     />
-    <div class="absolute inset-0 flex items-end md:items-center">
-      <div class="mx-auto w-full max-w-6xl px-4 pb-10 md:pb-0">
-        <div
-          class="rounded-2xl bg-[#20221f]/60 p-6 text-[#ebeae5] md:max-w-md md:bg-transparent md:p-0"
+  </section>
+
+  <section class="bg-highlight px-4 py-14">
+    <div class="mx-auto max-w-6xl">
+      <h1
+        class="reveal font-hero text-[clamp(0.95rem,2.5vw,1.9rem)] font-bold normal-case leading-[1.2] tracking-normal"
+      >
+        {home.heroIntro[0]}
+      </h1>
+      <div class="reveal reveal-d1 mt-6 flex flex-wrap gap-3">
+        <a
+          href={pagePath(locale, 'books')}
+          class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-on-accent transition-opacity hover:opacity-90"
         >
-          <h1
-            class="reveal font-hero text-[clamp(0.95rem,2.5vw,1.9rem)] font-bold normal-case leading-[1.2] tracking-normal"
-          >
-            {home.heroIntro[0]}
-          </h1>
-          <div class="reveal reveal-d1 mt-6 flex flex-wrap gap-3">
-            <a
-              href={pagePath(locale, 'books')}
-              class="inline-flex items-center gap-2 rounded-full bg-[#ebeae5]/95 px-6 py-2.5 text-sm font-semibold text-[#2f312c] transition-opacity hover:opacity-90"
-            >
-              {t(locale, 'cta.book')}
-            </a>
-            <a
-              href={pagePath(locale, 'contravia')}
-              class="inline-flex items-center gap-2 rounded-full border border-[#ebeae5]/60 px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-[#ebeae5]/15"
-            >
-              {t(locale, 'cta.podcast')}
-            </a>
-          </div>
-        </div>
+          {t(locale, 'cta.book')}
+        </a>
+        <a
+          href={pagePath(locale, 'contravia')}
+          class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-surface"
+        >
+          {t(locale, 'cta.podcast')}
+        </a>
       </div>
     </div>
   </section>
