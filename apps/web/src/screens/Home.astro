@@ -13,7 +13,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const { home, about, contravia, books, music, gallery, contact } = getContent(locale);
-const hero = photoById('suit-seated');
+const hero = photoById('stool-seated');
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
 // Candace-style photo sections: image + short phrase, each opens a side page.
@@ -58,27 +58,26 @@ const sections = [
 ---
 
 <Base locale={locale} page="home" jsonLd={[personJsonLd(origin, locale)]}>
-  <section class="relative h-[78vh] min-h-[540px] overflow-hidden">
+  <section class="relative h-[82vh] min-h-[560px] overflow-hidden">
     <Image
       src={hero.image}
       alt={hero.alt[locale]}
-      widths={[800, 1400, 2000]}
+      widths={[800, 1400, 2400]}
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
-      class="absolute inset-0 h-full w-full object-cover"
+      class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_22%]"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-[#20221f]/80 via-[#20221f]/25 to-transparent">
     </div>
     <div class="absolute inset-x-0 bottom-0">
       <div class="mx-auto max-w-6xl px-4 pb-14 text-[#ebeae5]">
-        <p class="reveal font-serif text-lg italic opacity-90">{home.heroIntro[0]}</p>
         <h1
-          class="reveal reveal-d1 mt-4 max-w-4xl font-sans text-[clamp(1.6rem,4.4vw,3.2rem)] font-bold normal-case leading-[1.15] tracking-normal"
+          class="reveal max-w-4xl font-sans text-[clamp(1.9rem,5vw,3.8rem)] font-bold normal-case leading-[1.12] tracking-normal"
         >
-          {home.heroTitle}
+          {home.heroIntro[0]}
         </h1>
-        <div class="reveal reveal-d2 mt-8 flex flex-wrap gap-3">
+        <div class="reveal reveal-d1 mt-8 flex flex-wrap gap-3">
           <a
             href={pagePath(locale, 'books')}
             class="inline-flex items-center gap-2 rounded-full bg-[#ebeae5]/95 px-6 py-2.5 text-sm font-semibold text-[#2f312c] transition-opacity hover:opacity-90"
@@ -117,7 +116,7 @@ const sections = [
               widths={[480, 800, 1200]}
               sizes="(min-width: 768px) 50vw, 100vw"
               loading="lazy"
-              class="aspect-[4/3] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+              class="aspect-[16/10] w-full object-cover object-[50%_25%] transition-transform duration-700 ease-out group-hover:scale-105"
             />
           </div>
           <div

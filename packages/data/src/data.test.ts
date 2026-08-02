@@ -104,8 +104,8 @@ describe('content parity across locales', () => {
 });
 
 describe('photos', () => {
-  it('has six photos with unique ids and files', () => {
-    expect(PHOTOS).toHaveLength(6);
+  it('has seven photos with unique ids and files', () => {
+    expect(PHOTOS).toHaveLength(7);
     expect(new Set(PHOTOS.map((p) => p.id)).size).toBe(PHOTOS.length);
     expect(new Set(PHOTOS.map((p) => p.file)).size).toBe(PHOTOS.length);
   });

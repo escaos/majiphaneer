@@ -146,8 +146,23 @@ html[data-js] .reveal-d2 {
   }
 }
 
+/* Ken Burns entrance on the hero photo: a slow settle from a gentle zoom.
+   The global reduced-motion rule collapses the animation to nothing. */
+@keyframes hero-settle {
+  from {
+    scale: 1.12;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.hero-img {
+  animation: hero-settle 4.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* Long image lists render lazily without layout shift. */
 .gallery-item {
   content-visibility: auto;
-  contain-intrinsic-size: auto 480px;
+  contain-intrinsic-size: auto 380px;
 }

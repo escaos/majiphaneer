@@ -10,6 +10,16 @@ export interface Photo {
 // Portrait session photos by Lauren King Photography, provided by Maji.
 export const PHOTOS: Photo[] = [
   {
+    id: 'stool-seated',
+    file: 'LK_01694.jpg',
+    alt: {
+      es: 'Maji Phaneer sentada en un taburete de madera, con traje azul claro',
+      en: 'Maji Phaneer seated on a wooden stool in a light blue suit',
+      fr: 'Maji Phaneer assise sur un tabouret en bois, en tailleur bleu clair',
+      de: 'Maji Phaneer auf einem Holzhocker sitzend, im hellblauen Anzug',
+    },
+  },
+  {
     id: 'suit-seated',
     file: 'LK_01729.jpg',
     alt: {
