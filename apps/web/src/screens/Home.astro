@@ -12,7 +12,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const { home, about, contravia, books, music, gallery, contact } = getContent(locale);
-const hero = photoById('beige-smile');
+const hero = photoById('denim-laughing');
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
 // sarahjakesroberts.com-style home: clean photo hero, statement band, video
@@ -21,7 +21,7 @@ const sections = [
   { href: pagePath(locale, 'about'), photo: photoById('floor-thoughtful'), title: about.title },
   {
     href: pagePath(locale, 'contravia'),
-    photo: photoById('denim-laughing'),
+    photo: photoById('suit-seated'),
     title: contravia.title,
   },
   { href: pagePath(locale, 'books'), photo: photoById('profile'), title: books.title },
@@ -44,29 +44,34 @@ const sections = [
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
-      class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_30%]"
+      class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_18%]"
     />
-  </section>
-
-  <section class="bg-highlight px-4 py-16 md:py-20">
-    <h1
-      class="reveal mx-auto max-w-4xl text-center text-[clamp(1.3rem,3.4vw,2.5rem)] leading-[1.25]"
-    >
-      {home.heroTitle}
-    </h1>
-    <div class="reveal reveal-d1 mt-10 flex flex-wrap justify-center gap-3">
-      <a
-        href={pagePath(locale, 'books')}
-        class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-on-accent transition-opacity hover:opacity-90"
-      >
-        {t(locale, 'cta.book')}
-      </a>
-      <a
-        href={pagePath(locale, 'contravia')}
-        class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-surface"
-      >
-        {t(locale, 'cta.podcast')}
-      </a>
+    <div class="absolute inset-0 flex items-end md:items-center">
+      <div class="mx-auto w-full max-w-6xl px-4 pb-10 md:pb-0">
+        <div
+          class="rounded-2xl bg-[#20221f]/60 p-6 text-[#ebeae5] md:max-w-md md:bg-transparent md:p-0"
+        >
+          <h1
+            class="reveal font-hero text-[clamp(0.95rem,2.5vw,1.9rem)] font-bold normal-case leading-[1.2] tracking-normal"
+          >
+            {home.heroIntro[0]}
+          </h1>
+          <div class="reveal reveal-d1 mt-6 flex flex-wrap gap-3">
+            <a
+              href={pagePath(locale, 'books')}
+              class="inline-flex items-center gap-2 rounded-full bg-[#ebeae5]/95 px-6 py-2.5 text-sm font-semibold text-[#2f312c] transition-opacity hover:opacity-90"
+            >
+              {t(locale, 'cta.book')}
+            </a>
+            <a
+              href={pagePath(locale, 'contravia')}
+              class="inline-flex items-center gap-2 rounded-full border border-[#ebeae5]/60 px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-[#ebeae5]/15"
+            >
+              {t(locale, 'cta.podcast')}
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
