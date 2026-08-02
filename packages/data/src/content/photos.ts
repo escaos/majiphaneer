@@ -10,6 +10,16 @@ export interface Photo {
 // Portrait session photos by Lauren King Photography, provided by Maji.
 export const PHOTOS: Photo[] = [
   {
+    id: 'beige-smile',
+    file: 'LK_01365.jpg',
+    alt: {
+      es: 'Maji Phaneer sonriendo, con chaqueta blanca, sobre un fondo beige cálido',
+      en: 'Maji Phaneer smiling in a white jacket against a warm beige background',
+      fr: 'Maji Phaneer souriante, en veste blanche, sur un fond beige chaleureux',
+      de: 'Maji Phaneer lächelnd in weißer Jacke vor einem warmen beigen Hintergrund',
+    },
+  },
+  {
     id: 'stool-seated',
     file: 'LK_01694.jpg',
     alt: {

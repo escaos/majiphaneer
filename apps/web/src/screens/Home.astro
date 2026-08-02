@@ -13,7 +13,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const { home, about, contravia, books, music, gallery, contact } = getContent(locale);
-const hero = photoById('stool-seated');
+const hero = photoById('beige-smile');
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
 // Candace-style photo sections: image + short phrase, each opens a side page.
@@ -66,30 +66,32 @@ const sections = [
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
-      class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_16%]"
+      class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_30%]"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-[#20221f]/80 via-[#20221f]/25 to-transparent">
-    </div>
-    <div class="absolute inset-x-0 bottom-0">
-      <div class="mx-auto max-w-6xl px-4 pb-14 text-[#ebeae5]">
-        <h1
-          class="reveal max-w-4xl font-hero text-[clamp(0.95rem,2.5vw,1.9rem)] font-bold normal-case leading-[1.2] tracking-normal"
+    <div class="absolute inset-0 flex items-end">
+      <div class="mx-auto w-full max-w-6xl px-4 pb-10 md:pb-16">
+        <div
+          class="rounded-2xl bg-[#f2e7d8]/80 p-6 text-[#3d3630] md:ml-auto md:max-w-lg md:bg-transparent md:p-0"
         >
-          {home.heroIntro[0]}
-        </h1>
-        <div class="reveal reveal-d1 mt-8 flex flex-wrap gap-3">
-          <a
-            href={pagePath(locale, 'books')}
-            class="inline-flex items-center gap-2 rounded-full bg-[#ebeae5]/95 px-6 py-2.5 text-sm font-semibold text-[#2f312c] transition-opacity hover:opacity-90"
+          <h1
+            class="reveal font-hero text-[clamp(0.95rem,2.5vw,1.9rem)] font-bold normal-case leading-[1.2] tracking-normal"
           >
-            {t(locale, 'cta.book')}
-          </a>
-          <a
-            href={pagePath(locale, 'contravia')}
-            class="inline-flex items-center gap-2 rounded-full border border-[#ebeae5]/60 px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-[#ebeae5]/15"
-          >
-            {t(locale, 'cta.podcast')}
-          </a>
+            {home.heroIntro[0]}
+          </h1>
+          <div class="reveal reveal-d1 mt-6 flex flex-wrap gap-3">
+            <a
+              href={pagePath(locale, 'books')}
+              class="inline-flex items-center gap-2 rounded-full bg-[#3d3630] px-6 py-2.5 text-sm font-semibold text-[#f4ece1] transition-opacity hover:opacity-90"
+            >
+              {t(locale, 'cta.book')}
+            </a>
+            <a
+              href={pagePath(locale, 'contravia')}
+              class="inline-flex items-center gap-2 rounded-full border border-[#3d3630]/40 px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-[#3d3630]/10"
+            >
+              {t(locale, 'cta.podcast')}
+            </a>
+          </div>
         </div>
       </div>
     </div>
