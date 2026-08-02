@@ -30,8 +30,8 @@ export function bookJsonLd(origin: string, locale: Locale) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Book',
-    name: content.book.title,
-    description: content.book.tagline,
+    name: content.books.book.title,
+    description: content.books.book.tagline,
     inLanguage: 'es',
     author: { '@type': 'Person', name: SITE_NAME, url: `${origin}/` },
   };
@@ -42,8 +42,8 @@ export function podcastJsonLd(_origin: string, locale: Locale) {
   return {
     '@context': 'https://schema.org',
     '@type': 'PodcastSeries',
-    name: content.podcast.title,
-    description: content.podcast.tagline,
+    name: content.contravia.title,
+    description: content.contravia.tagline,
     inLanguage: 'es',
   };
 }

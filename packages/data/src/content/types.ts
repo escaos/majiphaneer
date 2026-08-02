@@ -32,10 +32,12 @@ export interface PageMeta {
   description: string;
 }
 
-export type PageId = 'home' | 'about' | 'book' | 'podcast' | 'conferences' | 'gallery' | 'contact';
+export type PageId = 'home' | 'contravia' | 'books' | 'music' | 'gallery' | 'contact';
 
 export interface SiteContent {
   meta: Record<PageId, PageMeta>;
+  // The home page is a single long page holding the document's sections:
+  // hero, welcome, "Acerca de mí", "Mi historia", "En los medios".
   home: {
     heroTitle: string;
     heroIntro: string[];
@@ -43,27 +45,16 @@ export interface SiteContent {
     welcome: string[];
     /** PENDING: 1–2 minute welcome video URL. */
     welcomeVideoUrl: string;
-  };
-  about: {
-    title: string;
-    intro: string[];
+    aboutTitle: string;
+    aboutIntro: string[];
     storyTitle: string;
     story: string[];
     mediaTitle: string;
     /** PENDING: interviews, press, TV appearances. */
     media: MediaAppearance[];
   };
-  book: {
-    title: string;
-    tagline: string;
-    synopsis: string[];
-    /** PENDING: Amazon purchase link. */
-    amazonUrl: string;
-    reviewsTitle: string;
-    /** PENDING: reader reviews. */
-    reviews: Review[];
-  };
-  podcast: {
+  // Contravía is the podcast page.
+  contravia: {
     title: string;
     tagline: string;
     description: string[];
@@ -75,16 +66,32 @@ export interface SiteContent {
     /** PENDING: recent episodes. */
     episodes: Episode[];
   };
-  conferences: {
+  books: {
     title: string;
-    tagline: string;
-    description: string[];
-    topics: string[];
+    book: {
+      title: string;
+      tagline: string;
+      synopsis: string[];
+      /** PENDING: Amazon purchase link. */
+      amazonUrl: string;
+      reviewsTitle: string;
+      /** PENDING: reader reviews. */
+      reviews: Review[];
+    };
+  };
+  music: {
+    title: string;
+    /** PENDING: Maji's description of her music project. */
+    intro: string[];
+    /** PENDING: streaming / video links. */
+    links: SocialLink[];
   };
   gallery: {
     title: string;
     intro: string;
   };
+  // Contact also carries the "Invitaciones" section (conferences, preaching,
+  // podcasts, interviews, events, book presentations).
   contact: {
     title: string;
     tagline: string;
@@ -93,5 +100,9 @@ export interface SiteContent {
     email: string;
     /** PENDING: social profiles. */
     socials: SocialLink[];
+    invitationsTitle: string;
+    invitationsTagline: string;
+    invitationsDescription: string[];
+    topics: string[];
   };
 }

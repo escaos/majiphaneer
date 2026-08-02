@@ -12,27 +12,28 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const { home, book, podcast, conferences } = getContent(locale);
+const { home, contravia, books, contact } = getContent(locale);
 const hero = photoById('suit-seated');
+const aboutPortrait = photoById('floor-thoughtful');
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
 const cards = [
   {
-    href: pagePath(locale, 'book'),
-    title: t(locale, 'nav.book'),
-    text: book.tagline,
-    icon: 'book',
-  },
-  {
-    href: pagePath(locale, 'podcast'),
-    title: t(locale, 'nav.podcast'),
-    text: podcast.tagline,
+    href: pagePath(locale, 'contravia'),
+    title: t(locale, 'nav.contravia'),
+    text: contravia.tagline,
     icon: 'mic',
   },
   {
-    href: pagePath(locale, 'conferences'),
-    title: t(locale, 'nav.conferences'),
-    text: conferences.tagline,
+    href: pagePath(locale, 'books'),
+    title: t(locale, 'nav.books'),
+    text: books.book.tagline,
+    icon: 'book',
+  },
+  {
+    href: pagePath(locale, 'contact'),
+    title: contact.invitationsTitle,
+    text: contact.invitationsTagline,
     icon: 'users',
   },
 ] as const;
@@ -45,20 +46,20 @@ const cards = [
       {home.heroIntro.map((paragraph) => <p class="mt-5 text-lg text-muted">{paragraph}</p>)}
       <div class="mt-8 flex flex-wrap gap-3">
         <a
-          href={pagePath(locale, 'about')}
+          href="#story"
           class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
         >
           {t(locale, 'cta.story')}
           <Icon name="arrowRight" size={16} />
         </a>
         <a
-          href={pagePath(locale, 'book')}
+          href={pagePath(locale, 'books')}
           class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
         >
           {t(locale, 'cta.book')}
         </a>
         <a
-          href={pagePath(locale, 'podcast')}
+          href={pagePath(locale, 'contravia')}
           class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
         >
           {t(locale, 'cta.podcast')}
@@ -82,6 +83,47 @@ const cards = [
       {home.welcome.map((paragraph) => <p class="mt-4 max-w-3xl text-muted">{paragraph}</p>)}
     </div>
   </section>
+
+  <section id="about" class="mx-auto grid max-w-5xl gap-10 px-4 pt-16 md:grid-cols-[3fr_2fr]">
+    <div>
+      <h2 class="text-3xl">{home.aboutTitle}</h2>
+      {home.aboutIntro.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
+    </div>
+    <Image
+      src={aboutPortrait.image}
+      alt={aboutPortrait.alt[locale]}
+      widths={[480, 800]}
+      sizes="(min-width: 768px) 40vw, 100vw"
+      loading="lazy"
+      class="h-auto w-full self-start rounded-xl"
+    />
+  </section>
+
+  <section id="story" class="mx-auto max-w-5xl scroll-mt-8 px-4 pt-16">
+    <div class="rounded-xl bg-highlight px-6 py-10 sm:px-10">
+      <h2 class="text-3xl">{home.storyTitle}</h2>
+      {home.story.map((paragraph) => <p class="mt-5 max-w-3xl text-muted">{paragraph}</p>)}
+    </div>
+  </section>
+
+  {
+    home.media.length > 0 && (
+      <section id="media" class="mx-auto max-w-5xl px-4 pt-16">
+        <h2 class="text-3xl">{home.mediaTitle}</h2>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+          {home.media.map((item) => (
+            <li class="rounded-xl border border-border p-5">
+              <p class="text-sm uppercase tracking-wide text-muted">{item.outlet}</p>
+              <p class="mt-1">{item.title}</p>
+              <a href={item.url} rel="noopener" class="mt-2 inline-block text-sm text-secondary">
+                {t(locale, 'media.view')}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 
   <section class="mx-auto grid max-w-5xl gap-4 px-4 pt-16 sm:grid-cols-3">
     {

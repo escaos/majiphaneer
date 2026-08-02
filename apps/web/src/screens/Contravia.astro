@@ -11,25 +11,25 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const { podcast } = getContent(locale);
+const { contravia } = getContent(locale);
 const portrait = photoById('denim-laughing');
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
 const platforms = [
-  { url: podcast.spotifyUrl, label: t(locale, 'podcast.spotify'), icon: 'headphones' },
-  { url: podcast.youtubeUrl, label: t(locale, 'podcast.youtube'), icon: 'play' },
-  { url: podcast.appleUrl, label: t(locale, 'podcast.apple'), icon: 'mic' },
+  { url: contravia.spotifyUrl, label: t(locale, 'podcast.spotify'), icon: 'headphones' },
+  { url: contravia.youtubeUrl, label: t(locale, 'podcast.youtube'), icon: 'play' },
+  { url: contravia.appleUrl, label: t(locale, 'podcast.apple'), icon: 'mic' },
 ] as const;
 
 const availablePlatforms = platforms.filter((p) => p.url !== '');
 ---
 
-<Base locale={locale} page="podcast" jsonLd={[podcastJsonLd(origin, locale)]}>
+<Base locale={locale} page="contravia" jsonLd={[podcastJsonLd(origin, locale)]}>
   <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
     <div>
-      <h1 class="text-4xl">{podcast.title}</h1>
-      <p class="mt-4 font-display text-2xl text-secondary">{podcast.tagline}</p>
-      {podcast.description.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
+      <h1 class="text-4xl">{contravia.title}</h1>
+      <p class="mt-4 font-display text-2xl text-secondary">{contravia.tagline}</p>
+      {contravia.description.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
       {
         availablePlatforms.length > 0 && (
           <div class="mt-8 flex flex-wrap gap-3">
@@ -58,11 +58,11 @@ const availablePlatforms = platforms.filter((p) => p.url !== '');
   </section>
 
   {
-    podcast.episodes.length > 0 && (
+    contravia.episodes.length > 0 && (
       <section class="mx-auto max-w-5xl px-4 pt-16">
-        <h2 class="text-3xl">{podcast.episodesTitle}</h2>
+        <h2 class="text-3xl">{contravia.episodesTitle}</h2>
         <ul class="mt-6 grid gap-3">
-          {podcast.episodes.map((episode) => (
+          {contravia.episodes.map((episode) => (
             <li>
               <a
                 href={episode.url}

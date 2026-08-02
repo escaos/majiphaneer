@@ -7,23 +7,19 @@ export const en: SiteContent = {
       description:
         'Living with conviction in a world that constantly invites us to drift with the current. Conversations, teachings, and resources for thinking deeply and living with purpose.',
     },
-    about: {
-      title: 'About Maji — Maji Phaneer',
-      description: 'The story of Maji Phaneer: her calling, her faith, and why Contravía was born.',
-    },
-    book: {
-      title: 'Contravía, the book — Maji Phaneer',
-      description:
-        'When following your convictions means going against the current. A book for those willing to set out on the road of deep transformation.',
-    },
-    podcast: {
+    contravia: {
       title: 'Contravía Podcast — Maji Phaneer',
       description:
         'Conversations that invite you to think: identity, purpose, relationships, leadership, faith, and culture.',
     },
-    conferences: {
-      title: 'Invitations — Maji Phaneer',
-      description: 'Invite Maji Phaneer to your conference, event, podcast, or learning space.',
+    books: {
+      title: 'Books — Maji Phaneer',
+      description:
+        'Contravía: when following your convictions means going against the current. A book for those willing to set out on the road of deep transformation.',
+    },
+    music: {
+      title: 'Music — Maji Phaneer',
+      description: 'Music by Maji Phaneer.',
     },
     gallery: {
       title: 'Gallery — Maji Phaneer',
@@ -31,9 +27,9 @@ export const en: SiteContent = {
         'Photographs from conferences, preaching, the podcast, and moments with the community.',
     },
     contact: {
-      title: 'Contact — Maji Phaneer',
+      title: 'Contact and invitations — Maji Phaneer',
       description:
-        'Every great conversation begins with a message. Get in touch with Maji Phaneer.',
+        'Every great conversation begins with a message. Invite Maji Phaneer to your conference, event, podcast, or book presentation.',
     },
   },
   home: {
@@ -51,10 +47,8 @@ export const en: SiteContent = {
       'Thank you for being here.',
     ],
     welcomeVideoUrl: '',
-  },
-  about: {
-    title: 'About me',
-    intro: [
+    aboutTitle: 'About me',
+    aboutIntro: [
       'I have always felt a deep passion for communicating ideas that bring transformation.',
       'Over the years I came to understand that people do not merely need more information; they need honest conversations, hard questions, and solid principles to help them navigate the complexity of life.',
       'My journey has been full of lessons, challenges, and moments that have shaped my character and strengthened my conviction that the deepest truths remain relevant, even in a culture that changes constantly.',
@@ -76,20 +70,7 @@ export const en: SiteContent = {
     mediaTitle: 'In the media',
     media: [],
   },
-  book: {
-    title: 'Contravía',
-    tagline: 'When following your convictions means going against the current.',
-    synopsis: [
-      'We live in a time when the pressure to fit in grows stronger every day.',
-      'Contravía was born as an invitation to pause and ask ourselves whether we are building our lives on what endures, or simply following the direction of the culture.',
-      'Through experiences, reflections, and principles inspired by Scripture, this book challenges readers to develop an authentic faith, critical thinking, and the courage to stand firm when their convictions are put to the test.',
-      'It is not a book for those looking for easy answers; it is for those willing to set out on the road of deep transformation.',
-    ],
-    amazonUrl: '',
-    reviewsTitle: 'Reader reviews',
-    reviews: [],
-  },
-  podcast: {
+  contravia: {
     title: 'Contravía Podcast',
     tagline: 'Conversations that invite you to think.',
     description: [
@@ -103,14 +84,26 @@ export const en: SiteContent = {
     episodesTitle: 'Recent episodes',
     episodes: [],
   },
-  conferences: {
-    title: 'Invitations',
-    tagline: "Let's build a conversation that leaves a mark.",
-    description: [
-      'If you are organizing a conference, an event, a podcast, or any learning space, it will be a pleasure to hear your proposal.',
-      'I enjoy taking part in conversations that inspire people to live with purpose, develop solid convictions, and discover the impact a life guided by truth can have on the world around them.',
-    ],
-    topics: ['Conferences', 'Preaching', 'Podcasts', 'Interviews', 'Events'],
+  books: {
+    title: 'Books',
+    book: {
+      title: 'Contravía',
+      tagline: 'When following your convictions means going against the current.',
+      synopsis: [
+        'We live in a time when the pressure to fit in grows stronger every day.',
+        'Contravía was born as an invitation to pause and ask ourselves whether we are building our lives on what endures, or simply following the direction of the culture.',
+        'Through experiences, reflections, and principles inspired by Scripture, this book challenges readers to develop an authentic faith, critical thinking, and the courage to stand firm when their convictions are put to the test.',
+        'It is not a book for those looking for easy answers; it is for those willing to set out on the road of deep transformation.',
+      ],
+      amazonUrl: '',
+      reviewsTitle: 'Reader reviews',
+      reviews: [],
+    },
+  },
+  music: {
+    title: 'Music',
+    intro: [],
+    links: [],
   },
   gallery: {
     title: 'Gallery',
@@ -125,5 +118,12 @@ export const en: SiteContent = {
     ],
     email: '',
     socials: [],
+    invitationsTitle: 'Invitations',
+    invitationsTagline: "Let's build a conversation that leaves a mark.",
+    invitationsDescription: [
+      'If you are organizing a conference, an event, a podcast, or any learning space, it will be a pleasure to hear your proposal.',
+      'I enjoy taking part in conversations that inspire people to live with purpose, develop solid convictions, and discover the impact a life guided by truth can have on the world around them.',
+    ],
+    topics: ['Conferences', 'Preaching', 'Podcasts', 'Interviews', 'Events', 'Book presentations'],
   },
 };

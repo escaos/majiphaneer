@@ -47,13 +47,16 @@ describe('content parity across locales', () => {
     const c = CONTENT[locale];
     expect(c.home.heroIntro).toHaveLength(source.home.heroIntro.length);
     expect(c.home.welcome).toHaveLength(source.home.welcome.length);
-    expect(c.about.intro).toHaveLength(source.about.intro.length);
-    expect(c.about.story).toHaveLength(source.about.story.length);
-    expect(c.book.synopsis).toHaveLength(source.book.synopsis.length);
-    expect(c.podcast.description).toHaveLength(source.podcast.description.length);
-    expect(c.conferences.description).toHaveLength(source.conferences.description.length);
-    expect(c.conferences.topics).toHaveLength(source.conferences.topics.length);
+    expect(c.home.aboutIntro).toHaveLength(source.home.aboutIntro.length);
+    expect(c.home.story).toHaveLength(source.home.story.length);
+    expect(c.books.book.synopsis).toHaveLength(source.books.book.synopsis.length);
+    expect(c.contravia.description).toHaveLength(source.contravia.description.length);
+    expect(c.music.intro).toHaveLength(source.music.intro.length);
     expect(c.contact.description).toHaveLength(source.contact.description.length);
+    expect(c.contact.invitationsDescription).toHaveLength(
+      source.contact.invitationsDescription.length,
+    );
+    expect(c.contact.topics).toHaveLength(source.contact.topics.length);
     expect(Object.keys(c.meta).sort()).toEqual(Object.keys(source.meta).sort());
   });
 
@@ -62,26 +65,29 @@ describe('content parity across locales', () => {
     const required = [
       c.home.heroTitle,
       c.home.welcomeTitle,
-      c.about.title,
-      c.about.storyTitle,
-      c.book.title,
-      c.book.tagline,
-      c.podcast.title,
-      c.podcast.tagline,
-      c.conferences.title,
-      c.conferences.tagline,
+      c.home.aboutTitle,
+      c.home.storyTitle,
+      c.home.mediaTitle,
+      c.books.title,
+      c.books.book.title,
+      c.books.book.tagline,
+      c.contravia.title,
+      c.contravia.tagline,
+      c.music.title,
       c.gallery.title,
       c.gallery.intro,
       c.contact.title,
       c.contact.tagline,
+      c.contact.invitationsTitle,
+      c.contact.invitationsTagline,
       ...c.home.heroIntro,
       ...c.home.welcome,
-      ...c.about.intro,
-      ...c.about.story,
-      ...c.book.synopsis,
-      ...c.podcast.description,
-      ...c.conferences.description,
+      ...c.home.aboutIntro,
+      ...c.home.story,
+      ...c.books.book.synopsis,
+      ...c.contravia.description,
       ...c.contact.description,
+      ...c.contact.invitationsDescription,
       ...Object.values(c.meta).flatMap((m) => [m.title, m.description]),
     ];
     for (const text of required) {
@@ -120,17 +126,19 @@ describe('pending fields are honest', () => {
     const c = CONTENT[locale];
     for (const value of [
       c.home.welcomeVideoUrl,
-      c.book.amazonUrl,
-      c.podcast.spotifyUrl,
-      c.podcast.youtubeUrl,
-      c.podcast.appleUrl,
+      c.books.book.amazonUrl,
+      c.contravia.spotifyUrl,
+      c.contravia.youtubeUrl,
+      c.contravia.appleUrl,
       c.contact.email,
     ]) {
       expect(typeof value).toBe('string');
     }
-    expect(Array.isArray(c.about.media)).toBe(true);
-    expect(Array.isArray(c.book.reviews)).toBe(true);
-    expect(Array.isArray(c.podcast.episodes)).toBe(true);
+    expect(Array.isArray(c.home.media)).toBe(true);
+    expect(Array.isArray(c.books.book.reviews)).toBe(true);
+    expect(Array.isArray(c.contravia.episodes)).toBe(true);
+    expect(Array.isArray(c.music.intro)).toBe(true);
+    expect(Array.isArray(c.music.links)).toBe(true);
     expect(Array.isArray(c.contact.socials)).toBe(true);
   });
 });

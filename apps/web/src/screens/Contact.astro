@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import { getContent, type Locale, t } from '@majiphaneer/data';
 import Icon from '../components/Icon.astro';
 import ContactForm from '../islands/ContactForm.tsx';
 import Base from '../layouts/Base.astro';
+import { photoById } from '../lib/photos.ts';
 
 interface Props {
   locale: Locale;
@@ -10,47 +12,90 @@ interface Props {
 
 const { locale } = Astro.props;
 const { contact } = getContent(locale);
+const portrait = photoById('suit-standing');
 ---
 
 <Base locale={locale} page="contact">
-  <section class="mx-auto max-w-3xl px-4 pt-12">
-    <h1 class="text-4xl">{contact.title}</h1>
-    <p class="mt-4 font-display text-2xl text-secondary">{contact.tagline}</p>
-    {contact.description.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
+  <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
+    <div>
+      <h1 class="text-4xl">{contact.title}</h1>
+      <p class="mt-4 font-display text-2xl text-secondary">{contact.tagline}</p>
+      {contact.description.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
 
-    {
-      contact.email !== '' && (
-        <a
-          href={`mailto:${contact.email}`}
-          class="mt-8 inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
-        >
-          <Icon name="mail" size={16} />
-          {contact.email}
-        </a>
-      )
-    }
+      {
+        contact.email !== '' && (
+          <a
+            href={`mailto:${contact.email}`}
+            class="mt-8 inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
+          >
+            <Icon name="mail" size={16} />
+            {contact.email}
+          </a>
+        )
+      }
 
-    {
-      contact.socials.length > 0 && (
-        <ul class="mt-6 flex flex-wrap gap-3">
-          {contact.socials.map((social) => (
-            <li>
-              <a
-                href={social.url}
-                rel="me noopener"
-                class="rounded-full bg-surface px-4 py-1.5 text-sm transition-colors hover:bg-soft"
-              >
-                {social.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )
-    }
+      {
+        contact.socials.length > 0 && (
+          <ul class="mt-6 flex flex-wrap gap-3">
+            {contact.socials.map((social) => (
+              <li>
+                <a
+                  href={social.url}
+                  rel="me noopener"
+                  class="rounded-full bg-surface px-4 py-1.5 text-sm transition-colors hover:bg-soft"
+                >
+                  {social.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+    <Image
+      src={portrait.image}
+      alt={portrait.alt[locale]}
+      widths={[480, 800]}
+      sizes="(min-width: 768px) 40vw, 100vw"
+      loading="eager"
+      class="h-auto w-full self-start rounded-xl"
+    />
+  </section>
 
-    {
-      contact.email !== '' && (
-        <div class="mt-12 rounded-xl bg-highlight px-6 py-8 sm:px-8">
+  <section id="invitations" class="mx-auto max-w-5xl px-4 pt-16">
+    <div class="rounded-xl bg-highlight px-6 py-10 sm:px-10">
+      <h2 class="text-3xl">{contact.invitationsTitle}</h2>
+      <p class="mt-4 font-display text-2xl text-secondary">{contact.invitationsTagline}</p>
+      {
+        contact.invitationsDescription.map((paragraph) => (
+          <p class="mt-5 max-w-3xl text-muted">{paragraph}</p>
+        ))
+      }
+      <ul class="mt-8 flex flex-wrap gap-2">
+        {
+          contact.topics.map((topic) => (
+            <li class="rounded-full bg-surface px-4 py-1.5 text-sm">{topic}</li>
+          ))
+        }
+      </ul>
+      {
+        contact.email !== '' && (
+          <a
+            href={`mailto:${contact.email}`}
+            class="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
+          >
+            {t(locale, 'cta.invite')}
+            <Icon name="arrowRight" size={16} />
+          </a>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    contact.email !== '' && (
+      <section class="mx-auto max-w-5xl px-4 pt-16">
+        <div class="rounded-xl border border-border px-6 py-8 sm:px-8">
           <ContactForm
             client:visible
             email={contact.email}
@@ -61,7 +106,7 @@ const { contact } = getContent(locale);
             }}
           />
         </div>
-      )
-    }
-  </section>
+      </section>
+    )
+  }
 </Base>

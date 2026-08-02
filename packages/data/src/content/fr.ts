@@ -7,24 +7,19 @@ export const fr: SiteContent = {
       description:
         'Vivre avec conviction dans un monde qui nous invite constamment à suivre le courant. Des conversations, des enseignements et des ressources pour penser en profondeur et vivre avec intention.',
     },
-    about: {
-      title: 'À propos de Maji — Maji Phaneer',
-      description: "L'histoire de Maji Phaneer : son appel, sa foi et la naissance de Contravía.",
-    },
-    book: {
-      title: 'Contravía, le livre — Maji Phaneer',
-      description:
-        "Quand suivre ses convictions signifie aller à contre-courant. Un livre pour ceux qui sont prêts à s'engager sur le chemin d'une transformation profonde.",
-    },
-    podcast: {
+    contravia: {
       title: 'Contravía Podcast — Maji Phaneer',
       description:
         'Des conversations qui invitent à penser : identité, sens, relations, leadership, foi et culture.',
     },
-    conferences: {
-      title: 'Invitations — Maji Phaneer',
+    books: {
+      title: 'Livres — Maji Phaneer',
       description:
-        'Invitez Maji Phaneer à votre conférence, événement, podcast ou espace de formation.',
+        "Contravía : quand suivre ses convictions signifie aller à contre-courant. Un livre pour ceux qui sont prêts à s'engager sur le chemin d'une transformation profonde.",
+    },
+    music: {
+      title: 'Musique — Maji Phaneer',
+      description: 'La musique de Maji Phaneer.',
     },
     gallery: {
       title: 'Galerie — Maji Phaneer',
@@ -32,8 +27,9 @@ export const fr: SiteContent = {
         'Photographies de conférences, de prédications, du podcast et de moments avec la communauté.',
     },
     contact: {
-      title: 'Contact — Maji Phaneer',
-      description: 'Toute grande conversation commence par un message. Contactez Maji Phaneer.',
+      title: 'Contact et invitations — Maji Phaneer',
+      description:
+        'Toute grande conversation commence par un message. Invitez Maji Phaneer à votre conférence, événement, podcast ou présentation du livre.',
     },
   },
   home: {
@@ -51,10 +47,8 @@ export const fr: SiteContent = {
       "Merci d'être ici.",
     ],
     welcomeVideoUrl: '',
-  },
-  about: {
-    title: 'À propos de moi',
-    intro: [
+    aboutTitle: 'À propos de moi',
+    aboutIntro: [
       "J'ai toujours ressenti une profonde passion pour la communication d'idées qui produisent une transformation.",
       "Au fil des années, j'ai compris que les gens n'ont pas seulement besoin de plus d'informations ; ils ont besoin de conversations honnêtes, de questions difficiles et de principes solides pour les aider à traverser la complexité de la vie.",
       "Mon chemin a été rempli d'apprentissages, de défis et de moments qui ont façonné mon caractère et renforcé ma conviction que les vérités les plus profondes restent pertinentes, même dans une culture en perpétuel changement.",
@@ -76,20 +70,7 @@ export const fr: SiteContent = {
     mediaTitle: 'Dans les médias',
     media: [],
   },
-  book: {
-    title: 'Contravía',
-    tagline: 'Quand suivre ses convictions signifie aller à contre-courant.',
-    synopsis: [
-      'Nous vivons à une époque où la pression pour se conformer est de plus en plus forte.',
-      'Contravía est née comme une invitation à nous arrêter et à nous demander si nous construisons notre vie sur ce qui demeure, ou si nous suivons simplement la direction de la culture.',
-      "À travers des expériences, des réflexions et des principes inspirés des Écritures, ce livre invite le lecteur à développer une foi authentique, une pensée critique et le courage de rester ferme quand ses convictions sont mises à l'épreuve.",
-      "Ce n'est pas un livre pour ceux qui cherchent des réponses faciles ; il est pour ceux qui sont prêts à s'engager sur le chemin d'une transformation profonde.",
-    ],
-    amazonUrl: '',
-    reviewsTitle: 'Avis de lecteurs',
-    reviews: [],
-  },
-  podcast: {
+  contravia: {
     title: 'Contravía Podcast',
     tagline: 'Des conversations qui invitent à penser.',
     description: [
@@ -103,14 +84,26 @@ export const fr: SiteContent = {
     episodesTitle: 'Épisodes récents',
     episodes: [],
   },
-  conferences: {
-    title: 'Invitations',
-    tagline: 'Construisons une conversation qui laisse une empreinte.',
-    description: [
-      'Si vous organisez une conférence, un événement, un podcast ou tout espace de formation, ce sera un plaisir de découvrir votre proposition.',
-      "J'aime participer à des conversations qui inspirent les gens à vivre avec un but, à développer des convictions solides et à découvrir l'impact qu'une vie guidée par la vérité peut avoir autour d'elle.",
-    ],
-    topics: ['Conférences', 'Prédications', 'Podcasts', 'Interviews', 'Événements'],
+  books: {
+    title: 'Livres',
+    book: {
+      title: 'Contravía',
+      tagline: 'Quand suivre ses convictions signifie aller à contre-courant.',
+      synopsis: [
+        'Nous vivons à une époque où la pression pour se conformer est de plus en plus forte.',
+        'Contravía est née comme une invitation à nous arrêter et à nous demander si nous construisons notre vie sur ce qui demeure, ou si nous suivons simplement la direction de la culture.',
+        "À travers des expériences, des réflexions et des principes inspirés des Écritures, ce livre invite le lecteur à développer une foi authentique, une pensée critique et le courage de rester ferme quand ses convictions sont mises à l'épreuve.",
+        "Ce n'est pas un livre pour ceux qui cherchent des réponses faciles ; il est pour ceux qui sont prêts à s'engager sur le chemin d'une transformation profonde.",
+      ],
+      amazonUrl: '',
+      reviewsTitle: 'Avis de lecteurs',
+      reviews: [],
+    },
+  },
+  music: {
+    title: 'Musique',
+    intro: [],
+    links: [],
   },
   gallery: {
     title: 'Galerie',
@@ -126,5 +119,19 @@ export const fr: SiteContent = {
     ],
     email: '',
     socials: [],
+    invitationsTitle: 'Invitations',
+    invitationsTagline: 'Construisons une conversation qui laisse une empreinte.',
+    invitationsDescription: [
+      'Si vous organisez une conférence, un événement, un podcast ou tout espace de formation, ce sera un plaisir de découvrir votre proposition.',
+      "J'aime participer à des conversations qui inspirent les gens à vivre avec un but, à développer des convictions solides et à découvrir l'impact qu'une vie guidée par la vérité peut avoir autour d'elle.",
+    ],
+    topics: [
+      'Conférences',
+      'Prédications',
+      'Podcasts',
+      'Interviews',
+      'Événements',
+      'Présentations du livre',
+    ],
   },
 };

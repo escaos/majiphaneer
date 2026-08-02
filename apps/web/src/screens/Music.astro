@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import { getContent, type Locale, t } from '@majiphaneer/data';
+import Base from '../layouts/Base.astro';
+import { photoById } from '../lib/photos.ts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { music } = getContent(locale);
+const portrait = photoById('denim-table');
+---
+
+<Base locale={locale} page="music">
+  <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
+    <div>
+      <h1 class="text-4xl">{music.title}</h1>
+      {
+        music.intro.length > 0 ? (
+          music.intro.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)
+        ) : (
+          <p class="mt-5 font-display text-2xl text-secondary">{t(locale, 'music.soon')}</p>
+        )
+      }
+      {
+        music.links.length > 0 && (
+          <ul class="mt-8 flex flex-wrap gap-3">
+            {music.links.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  rel="noopener"
+                  class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+    <Image
+      src={portrait.image}
+      alt={portrait.alt[locale]}
+      widths={[480, 800]}
+      sizes="(min-width: 768px) 40vw, 100vw"
+      loading="eager"
+      class="h-auto w-full self-start rounded-xl"
+    />
+  </section>
+</Base>

@@ -5,6 +5,10 @@ Astro 5 + Preact islands + Tailwind 4, deployed as Cloudflare Workers static
 assets. Spanish lives unprefixed at the root; `/en`, `/fr`, `/de` mirror it
 with the same English slugs.
 
+Page map: `/` (long home: hero, welcome, Acerca de mí, Mi historia, En los
+medios), `/contravia` (podcast), `/books`, `/music`, `/gallery`, `/contact`
+(includes the Invitaciones section).
+
 ## Layout
 
 - `apps/web` — Astro site (screens, routes, islands, styles, wrangler.jsonc)
@@ -29,13 +33,14 @@ pnpm --filter @majiphaneer/web preview
 The UI hides each of these until a real value lands in
 `packages/data/src/content/*.ts`:
 
-- `book.amazonUrl` — Amazon purchase link
-- `podcast.spotifyUrl` / `youtubeUrl` / `appleUrl` and `podcast.episodes`
+- `books.book.amazonUrl` — Amazon purchase link
+- `contravia.spotifyUrl` / `youtubeUrl` / `appleUrl` and `contravia.episodes`
 - `home.welcomeVideoUrl` — 1–2 min welcome video
-- `about.media` — press/interview appearances ("En los medios")
-- `book.reviews` — reader reviews
-- `contact.email` and `contact.socials` (the contact form renders once an
-  email exists)
+- `home.media` — press/interview appearances ("En los medios")
+- `books.book.reviews` — reader reviews
+- `music.intro` and `music.links` — the page shows "Próximamente" until filled
+- `contact.email` and `contact.socials` (the contact form and the "Invítame a
+  tu evento" button render once an email exists)
 
 ## Deploy (one-time setup)
 

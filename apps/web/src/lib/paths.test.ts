@@ -5,14 +5,14 @@ import { localeStaticPaths, PAGE_IDS, pagePath } from './paths.ts';
 describe('pagePath', () => {
   it('default locale lives unprefixed at the root', () => {
     expect(pagePath('es', 'home')).toBe('/');
-    expect(pagePath('es', 'book')).toBe('/contravia');
-    expect(pagePath('es', 'about')).toBe('/about');
+    expect(pagePath('es', 'contravia')).toBe('/contravia');
+    expect(pagePath('es', 'books')).toBe('/books');
   });
 
   it('other locales are prefixed with the same English slugs', () => {
     expect(pagePath('en', 'home')).toBe('/en');
-    expect(pagePath('fr', 'book')).toBe('/fr/contravia');
-    expect(pagePath('de', 'conferences')).toBe('/de/conferences');
+    expect(pagePath('fr', 'contravia')).toBe('/fr/contravia');
+    expect(pagePath('de', 'music')).toBe('/de/music');
   });
 
   it('never emits a trailing slash (except the bare root)', () => {

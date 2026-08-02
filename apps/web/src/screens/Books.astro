@@ -11,15 +11,20 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const { book } = getContent(locale);
+const { books } = getContent(locale);
+const book = books.book;
 const portrait = photoById('profile');
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 ---
 
-<Base locale={locale} page="book" ogType="book" jsonLd={[bookJsonLd(origin, locale)]}>
-  <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
+<Base locale={locale} page="books" ogType="book" jsonLd={[bookJsonLd(origin, locale)]}>
+  <section class="mx-auto max-w-5xl px-4 pt-12">
+    <h1 class="text-4xl">{books.title}</h1>
+  </section>
+
+  <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-8 md:grid-cols-[3fr_2fr]">
     <div>
-      <h1 class="text-4xl">{book.title}</h1>
+      <h2 class="font-display text-3xl">{book.title}</h2>
       <p class="mt-4 font-display text-2xl text-secondary">{book.tagline}</p>
       {book.synopsis.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
       {
