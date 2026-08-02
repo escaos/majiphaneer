@@ -31,27 +31,30 @@ const items = PAGE_IDS.map((id) => ({
       <details class="relative">
         <summary
           aria-label={t(locale, 'nav.menu')}
-          class="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full text-muted transition-colors hover:bg-alt hover:text-ink [&::-webkit-details-marker]:hidden"
+          class="menu-toggle flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full text-muted transition-colors hover:bg-alt hover:text-ink [&::-webkit-details-marker]:hidden"
         >
           <Icon name="menu" size={20} />
         </summary>
         <nav
           aria-label={t(locale, 'nav.menu')}
-          class="absolute right-0 top-full z-50 mt-2 w-60 rounded-2xl border border-border bg-bg p-2 shadow-lg"
+          class="menu-panel absolute right-0 top-full z-50 mt-3 w-72 overflow-hidden rounded-2xl border border-[#3a3c36] bg-[#23251f] py-2 text-[#ebeae5] shadow-2xl"
         >
           <ul>
             {
-              items.map((item) => (
-                <li>
+              items.map((item, index) => (
+                <li class="border-b border-[#ebeae5]/5 last:border-b-0">
                   <a
                     href={item.href}
                     aria-current={item.id === page ? 'page' : undefined}
                     class:list={[
-                      'block rounded-xl px-4 py-2.5 text-sm transition-colors hover:bg-surface',
-                      item.id === page ? 'bg-alt font-semibold text-ink' : 'text-muted',
+                      'group flex items-baseline justify-between gap-4 px-6 py-3.5 font-display text-sm uppercase tracking-widest transition-all hover:bg-[#ebeae5]/5 hover:pl-7',
+                      item.id === page ? 'text-accent' : 'text-[#ebeae5]/85 hover:text-[#ebeae5]',
                     ]}
                   >
                     {item.label}
+                    <span class="font-sans text-[10px] font-semibold tracking-[0.3em] text-[#ebeae5]/35 transition-colors group-hover:text-accent">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                   </a>
                 </li>
               ))
