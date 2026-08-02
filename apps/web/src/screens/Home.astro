@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import { getContent, type Locale, t } from '@majiphaneer/data';
-import Icon from '../components/Icon.astro';
 import Base from '../layouts/Base.astro';
 import { personJsonLd } from '../lib/jsonld.ts';
 import { pagePath } from '../lib/paths.ts';
@@ -16,43 +15,22 @@ const { home, about, contravia, books, music, gallery, contact } = getContent(lo
 const hero = photoById('beige-smile');
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
-// Candace-style photo sections: image + short phrase, each opens a side page.
+// sarahjakesroberts.com-style home: clean photo hero, statement band, video
+// (when provided), then full-bleed photo tiles that open the side pages.
 const sections = [
-  {
-    href: pagePath(locale, 'about'),
-    photo: photoById('floor-thoughtful'),
-    title: about.title,
-    phrase: t(locale, 'cta.story'),
-  },
+  { href: pagePath(locale, 'about'), photo: photoById('floor-thoughtful'), title: about.title },
   {
     href: pagePath(locale, 'contravia'),
     photo: photoById('denim-laughing'),
     title: contravia.title,
-    phrase: contravia.tagline,
   },
-  {
-    href: pagePath(locale, 'books'),
-    photo: photoById('profile'),
-    title: books.title,
-    phrase: books.book.tagline,
-  },
-  {
-    href: pagePath(locale, 'music'),
-    photo: photoById('denim-table'),
-    title: music.title,
-    phrase: music.intro[0] ?? t(locale, 'music.soon'),
-  },
-  {
-    href: pagePath(locale, 'gallery'),
-    photo: photoById('suit-standing'),
-    title: gallery.title,
-    phrase: gallery.intro,
-  },
+  { href: pagePath(locale, 'books'), photo: photoById('profile'), title: books.title },
+  { href: pagePath(locale, 'music'), photo: photoById('denim-table'), title: music.title },
+  { href: pagePath(locale, 'gallery'), photo: photoById('suit-standing'), title: gallery.title },
   {
     href: pagePath(locale, 'contact'),
-    photo: photoById('suit-seated'),
+    photo: photoById('stool-seated'),
     title: contact.invitationsTitle,
-    phrase: contact.invitationsTagline,
   },
 ];
 ---
@@ -68,73 +46,64 @@ const sections = [
       fetchpriority="high"
       class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_30%]"
     />
-    <div class="absolute inset-0 flex items-end">
-      <div class="mx-auto w-full max-w-6xl px-4 pb-10 md:pb-16">
-        <div
-          class="rounded-2xl bg-[#f2e7d8]/80 p-6 text-[#3d3630] md:ml-auto md:max-w-lg md:bg-transparent md:p-0"
-        >
-          <h1
-            class="reveal font-hero text-[clamp(0.95rem,2.5vw,1.9rem)] font-bold normal-case leading-[1.2] tracking-normal"
-          >
-            {home.heroIntro[0]}
-          </h1>
-          <div class="reveal reveal-d1 mt-6 flex flex-wrap gap-3">
-            <a
-              href={pagePath(locale, 'books')}
-              class="inline-flex items-center gap-2 rounded-full bg-[#3d3630] px-6 py-2.5 text-sm font-semibold text-[#f4ece1] transition-opacity hover:opacity-90"
-            >
-              {t(locale, 'cta.book')}
-            </a>
-            <a
-              href={pagePath(locale, 'contravia')}
-              class="inline-flex items-center gap-2 rounded-full border border-[#3d3630]/40 px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-[#3d3630]/10"
-            >
-              {t(locale, 'cta.podcast')}
-            </a>
-          </div>
-        </div>
-      </div>
+  </section>
+
+  <section class="bg-highlight px-4 py-16 md:py-20">
+    <h1
+      class="reveal mx-auto max-w-4xl text-center text-[clamp(1.3rem,3.4vw,2.5rem)] leading-[1.25]"
+    >
+      {home.heroTitle}
+    </h1>
+    <div class="reveal reveal-d1 mt-10 flex flex-wrap justify-center gap-3">
+      <a
+        href={pagePath(locale, 'books')}
+        class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-on-accent transition-opacity hover:opacity-90"
+      >
+        {t(locale, 'cta.book')}
+      </a>
+      <a
+        href={pagePath(locale, 'contravia')}
+        class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-surface"
+      >
+        {t(locale, 'cta.podcast')}
+      </a>
     </div>
   </section>
 
-  <section class="reveal mx-auto max-w-3xl px-4 pt-20 text-center">
-    <h2 class="text-2xl">{home.welcomeTitle}</h2>
-    <p class="mt-5 font-serif text-xl italic leading-relaxed text-muted">{home.welcome[0]}</p>
-  </section>
+  {
+    home.welcomeVideoUrl !== '' && (
+      <section class="bg-bg">
+        <div class="mx-auto aspect-video w-full max-w-5xl">
+          <iframe
+            src={home.welcomeVideoUrl}
+            title={home.welcomeTitle}
+            loading="lazy"
+            allowfullscreen
+            class="h-full w-full"
+          />
+        </div>
+      </section>
+    )
+  }
 
-  <div class="mx-auto grid max-w-6xl gap-8 px-4 pt-20">
+  <div class="grid gap-1 pt-1 md:grid-cols-2">
     {
-      sections.map((section, index) => (
-        <a href={section.href} class="reveal group grid items-center gap-8 md:grid-cols-2">
-          <div
-            class:list={[
-              'overflow-hidden rounded-2xl',
-              index % 2 === 1 ? 'md:order-2' : '',
-            ]}
-          >
-            <Image
-              src={section.photo.image}
-              alt={section.photo.alt[locale]}
-              widths={[480, 800, 1200]}
-              sizes="(min-width: 768px) 50vw, 100vw"
-              loading="lazy"
-              class="aspect-[16/10] w-full object-cover object-[50%_25%] transition-transform duration-700 ease-out group-hover:scale-105"
-            />
-          </div>
-          <div
-            class:list={[
-              index % 2 === 1 ? 'md:order-1 md:justify-self-end md:text-right' : '',
-            ]}
-          >
-            <p class="text-xs font-semibold uppercase tracking-[0.35em] text-secondary">
-              {String(index + 1).padStart(2, '0')}
-            </p>
-            <h2 class="mt-3 text-3xl md:text-4xl">{section.title}</h2>
-            <p class="mt-4 max-w-md font-serif text-lg italic text-muted">{section.phrase}</p>
-            <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest transition-all group-hover:gap-4">
-              {t(locale, 'cta.explore')}
-              <Icon name="arrowRight" size={16} />
-            </span>
+      sections.map((section) => (
+        <a href={section.href} class="reveal group relative block overflow-hidden">
+          <Image
+            src={section.photo.image}
+            alt={section.photo.alt[locale]}
+            widths={[600, 900, 1400]}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            loading="lazy"
+            class="aspect-[4/3] w-full object-cover object-[50%_25%] transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-black/25 transition-colors duration-500 group-hover:bg-black/40" />
+          <div class="absolute inset-0 flex items-center justify-center p-6">
+            <h2 class="text-center text-2xl text-white drop-shadow-md md:text-3xl">
+              {section.title}
+              <span class="mx-auto mt-4 block h-px w-16 bg-white/80" />
+            </h2>
           </div>
         </a>
       ))
