@@ -31,9 +31,10 @@ const xDefault = toAbsolute(pagePath('es', page));
 
 const OG_LOCALES: Record<Locale, string> = { es: 'es_ES', en: 'en_US', fr: 'fr_FR', de: 'de_DE' };
 
-// Stamps data-theme on <html> before first paint: explicit stored choice wins
-// in both directions, system preference is only the first-visit default.
-const themeScript = `(()=>{try{var t=localStorage.getItem('${THEME_KEY}');t!=='dark'&&t!=='light'&&(t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}})()`;
+// Stamps data-theme on <html> before first paint. The brand palette (light)
+// is ALWAYS the first-visit default — dark is explicit opt-in via the toggle
+// only, so the design-system colors are what every new visitor sees.
+const themeScript = `(()=>{try{var t=localStorage.getItem('${THEME_KEY}');document.documentElement.dataset.theme=t==='dark'?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}})()`;
 
 const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
 ---
