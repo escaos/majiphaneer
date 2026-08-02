@@ -1,0 +1,20 @@
+---
+import { t } from '@majiphaneer/data';
+import Base from '../layouts/Base.astro';
+import { pagePath } from '../lib/paths.ts';
+
+const locale = 'es';
+---
+
+<Base locale={locale} page="home" noindex>
+  <section class="mx-auto max-w-3xl px-4 pt-24 text-center">
+    <h1 class="text-4xl">{t(locale, 'notFound.title')}</h1>
+    <p class="mt-4 text-muted">{t(locale, 'notFound.body')}</p>
+    <a
+      href={pagePath(locale, 'home')}
+      class="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
+    >
+      {t(locale, 'notFound.back')}
+    </a>
+  </section>
+</Base>

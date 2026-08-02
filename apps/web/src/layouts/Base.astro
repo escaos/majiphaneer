@@ -1,0 +1,85 @@
+---
+import { getContent, LOCALES, type Locale, type PageId, SITE_NAME, t } from '@majiphaneer/data';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { webSiteJsonLd } from '../lib/jsonld.ts';
+import { pagePath } from '../lib/paths.ts';
+import { THEME_KEY } from '../lib/theme.ts';
+import '../styles/global.css';
+
+interface Props {
+  locale: Locale;
+  page: PageId;
+  noindex?: boolean;
+  ogType?: 'website' | 'book';
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { locale, page, noindex = false, ogType = 'website', jsonLd = [] } = Astro.props;
+
+const content = getContent(locale);
+const meta = content.meta[page];
+
+// Astro.site comes from SITE_URL; canonicals use it so preview builds can't
+// claim the production URL. No trailing slash (root URL is the bare origin).
+const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
+const toAbsolute = (path: string) => (path === '/' ? origin : `${origin}${path}`);
+const canonical = toAbsolute(pagePath(locale, page));
+
+const alternates = LOCALES.map((l) => ({ hreflang: l, href: toAbsolute(pagePath(l, page)) }));
+const xDefault = toAbsolute(pagePath('es', page));
+
+const OG_LOCALES: Record<Locale, string> = { es: 'es_ES', en: 'en_US', fr: 'fr_FR', de: 'de_DE' };
+
+// Stamps data-theme on <html> before first paint: explicit stored choice wins
+// in both directions, system preference is only the first-visit default.
+const themeScript = `(()=>{try{var t=localStorage.getItem('${THEME_KEY}');t!=='dark'&&t!=='light'&&(t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}})()`;
+
+const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <script is:inline set:html={themeScript} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    {!noindex && alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={xDefault} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${origin}/og.jpg`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={OG_LOCALES[locale]} />
+    {
+      LOCALES.filter((l) => l !== locale).map((l) => (
+        <meta property="og:locale:alternate" content={OG_LOCALES[l]} />
+      ))
+    }
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLdBlocks.map((block) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
+  </head>
+  <body class="bg-bg text-ink">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-surface focus:px-4 focus:py-2"
+    >
+      {t(locale, 'skip.content')}
+    </a>
+    <Header locale={locale} page={page} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

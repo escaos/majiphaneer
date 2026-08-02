@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import { getContent, type Locale } from '@majiphaneer/data';
+import Base from '../layouts/Base.astro';
+import { RESOLVED_PHOTOS } from '../lib/photos.ts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { gallery } = getContent(locale);
+---
+
+<Base locale={locale} page="gallery">
+  <section class="mx-auto max-w-5xl px-4 pt-12">
+    <h1 class="text-4xl">{gallery.title}</h1>
+    <p class="mt-4 max-w-2xl text-muted">{gallery.intro}</p>
+    <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        RESOLVED_PHOTOS.map((photo) => (
+          <li class="gallery-item">
+            <Image
+              src={photo.image}
+              alt={photo.alt[locale]}
+              widths={[400, 800]}
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              loading="lazy"
+              class="h-full w-full rounded-xl object-cover"
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

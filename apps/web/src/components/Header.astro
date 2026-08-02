@@ -1,0 +1,61 @@
+---
+import { type Locale, type PageId, SITE_NAME, t } from '@majiphaneer/data';
+import ThemeToggle from '../islands/ThemeToggle.tsx';
+import { PAGE_IDS, pagePath } from '../lib/paths.ts';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  locale: Locale;
+  page: PageId;
+}
+
+const { locale, page } = Astro.props;
+
+const NAV_KEYS = {
+  home: 'nav.home',
+  about: 'nav.about',
+  book: 'nav.book',
+  podcast: 'nav.podcast',
+  conferences: 'nav.conferences',
+  gallery: 'nav.gallery',
+  contact: 'nav.contact',
+} as const;
+
+const items = PAGE_IDS.map((id) => ({
+  id,
+  href: pagePath(locale, id),
+  label: t(locale, NAV_KEYS[id]),
+}));
+---
+
+<header class="border-b border-border bg-bg">
+  <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4">
+    <a href={pagePath(locale, 'home')} class="font-display text-xl tracking-wide">
+      {SITE_NAME}
+    </a>
+    <div class="flex items-center gap-3">
+      <LanguageSwitcher locale={locale} page={page} />
+      <ThemeToggle client:idle label={t(locale, 'theme.toggle')} />
+    </div>
+    <nav class="w-full" aria-label={SITE_NAME}>
+      <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm">
+        {
+          items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={item.id === page ? 'page' : undefined}
+                class:list={[
+                  'inline-block py-1 transition-colors hover:text-ink',
+                  item.id === page ? 'font-medium text-ink underline underline-offset-8' : 'text-muted',
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

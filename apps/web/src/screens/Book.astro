@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import { getContent, type Locale, t } from '@majiphaneer/data';
+import Icon from '../components/Icon.astro';
+import Base from '../layouts/Base.astro';
+import { bookJsonLd } from '../lib/jsonld.ts';
+import { photoById } from '../lib/photos.ts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { book } = getContent(locale);
+const portrait = photoById('profile');
+const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
+---
+
+<Base locale={locale} page="book" ogType="book" jsonLd={[bookJsonLd(origin, locale)]}>
+  <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
+    <div>
+      <h1 class="text-4xl">{book.title}</h1>
+      <p class="mt-4 font-display text-2xl text-secondary">{book.tagline}</p>
+      {book.synopsis.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
+      {
+        book.amazonUrl !== '' && (
+          <a
+            href={book.amazonUrl}
+            rel="noopener"
+            class="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-medium text-on-accent transition-opacity hover:opacity-90"
+          >
+            <Icon name="book" size={16} />
+            {t(locale, 'book.buy')}
+          </a>
+        )
+      }
+    </div>
+    <Image
+      src={portrait.image}
+      alt={portrait.alt[locale]}
+      widths={[480, 800]}
+      sizes="(min-width: 768px) 40vw, 100vw"
+      loading="eager"
+      class="h-auto w-full self-start rounded-xl"
+    />
+  </section>
+
+  {
+    book.reviews.length > 0 && (
+      <section class="mx-auto max-w-5xl px-4 pt-16">
+        <h2 class="text-3xl">{book.reviewsTitle}</h2>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+          {book.reviews.map((review) => (
+            <li class="rounded-xl bg-surface/50 p-5">
+              <blockquote class="text-muted">“{review.quote}”</blockquote>
+              <p class="mt-3 text-sm font-medium">{review.author}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Base>

@@ -1,0 +1,29 @@
+{
+  "name": "majiphaneer",
+  "private": true,
+  "packageManager": "pnpm@10.15.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lefthook",
+      "sharp",
+      "workerd"
+    ]
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "turbo build",
+    "test": "turbo test",
+    "typecheck": "turbo typecheck",
+    "lint": "biome check .",
+    "budgets": "node scripts/check-budgets.mjs apps/web/dist",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.1.2",
+    "lefthook": "^1.12.2",
+    "turbo": "^2.5.5"
+  }
+}

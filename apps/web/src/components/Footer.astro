@@ -1,0 +1,58 @@
+---
+import { getContent, type Locale, SITE_NAME, t } from '@majiphaneer/data';
+import { pagePath } from '../lib/paths.ts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { contact } = getContent(locale);
+
+const quickLinks = [
+  { href: pagePath(locale, 'home'), label: t(locale, 'nav.home') },
+  { href: pagePath(locale, 'book'), label: t(locale, 'nav.book') },
+  { href: pagePath(locale, 'podcast'), label: t(locale, 'nav.podcast') },
+  { href: pagePath(locale, 'contact'), label: t(locale, 'nav.contact') },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-16 border-t border-border bg-alt">
+  <div class="mx-auto grid max-w-5xl gap-6 px-4 py-10 sm:grid-cols-3">
+    <div>
+      <p class="font-display text-lg">{SITE_NAME}</p>
+      <p class="mt-1 text-sm text-muted">{t(locale, 'footer.tagline')}</p>
+    </div>
+    <nav aria-label={t(locale, 'nav.home')}>
+      <ul class="grid gap-1 text-sm">
+        {
+          quickLinks.map((link) => (
+            <li>
+              <a href={link.href} class="text-muted transition-colors hover:text-ink">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="text-sm text-muted sm:text-right">
+      {
+        contact.socials.length > 0 && (
+          <ul class="mb-2 flex gap-3 sm:justify-end">
+            {contact.socials.map((social) => (
+              <li>
+                <a href={social.url} rel="me noopener" class="hover:text-ink">
+                  {social.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <p>© {year} {SITE_NAME}. {t(locale, 'footer.rights')}</p>
+    </div>
+  </div>
+</footer>

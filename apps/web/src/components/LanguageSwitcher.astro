@@ -1,0 +1,34 @@
+---
+import { LOCALES, type Locale, type PageId, t } from '@majiphaneer/data';
+
+import { pagePath } from '../lib/paths.ts';
+
+interface Props {
+  locale: Locale;
+  page: PageId;
+}
+
+const { locale, page } = Astro.props;
+---
+
+<nav aria-label={t(locale, 'lang.label')}>
+  <ul class="flex items-center gap-1 text-xs uppercase tracking-wider">
+    {
+      LOCALES.map((l) => (
+        <li>
+          <a
+            href={pagePath(l, page)}
+            hreflang={l}
+            aria-current={l === locale ? 'true' : undefined}
+            class:list={[
+              'inline-block rounded-md px-2 py-1 transition-colors',
+              l === locale ? 'bg-surface font-semibold text-ink' : 'text-muted hover:text-ink',
+            ]}
+          >
+            {l}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -1,0 +1,93 @@
+@import 'tailwindcss';
+
+/* Palette from the approved design system ("Paleta de colores para página web").
+   Light values are the originals; dark values are derived equivalents in the
+   same calm hue family. data-theme is stamped on <html> before first paint. */
+:root {
+  --bg: #ebeae5; /* blanco cálido — fondo principal */
+  --surface: #cccac3; /* gris marfil — secciones/tarjetas */
+  --soft: #c3cccf; /* azul hielo — fondos suaves */
+  --border: #cfcccc; /* gris perla — bordes/áreas secundarias */
+  --accent: #a9aea5; /* verde salvia — botones secundarios/acentos */
+  --highlight: #e9e8dc; /* crema arena — bloques destacados */
+  --secondary: #aab3b6; /* azul grisáceo — botones/iconos/títulos secundarios */
+  --alt: #e0e1e1; /* gris muy claro — fondo alternativo */
+  --ink: #3b3b3b; /* texto principal */
+  --muted: #6a6a6a; /* texto secundario */
+  --on-accent: #2f312c; /* texto sobre botones sage (accesible en ambos temas) */
+}
+
+[data-theme='dark'] {
+  --bg: #21231f;
+  --surface: #2c2e2a;
+  --soft: #2a3133;
+  --border: #3d3f3b;
+  --accent: #8f978a;
+  --highlight: #2b2a23;
+  --secondary: #8e9ba0;
+  --alt: #262825;
+  --ink: #e6e4de;
+  --muted: #a5a49e;
+  --on-accent: #23251f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-soft: var(--soft);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-highlight: var(--highlight);
+  --color-secondary: var(--secondary);
+  --color-alt: var(--alt);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-on-accent: var(--on-accent);
+  --font-display: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--bg);
+    color: var(--ink);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Long image lists render lazily without layout shift. */
+.gallery-item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}

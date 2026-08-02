@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "majiphaneer",
+  "compatibility_date": "2026-07-01",
+  // Static assets only — no "main", no worker script. Static requests are
+  // free and unmetered on this setup.
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  // Fallback URL only; safe because robots.txt is host-guarded and _headers
+  // sends X-Robots-Tag: noindex for *.workers.dev.
+  "workers_dev": true,
+  // The zone must be active on Cloudflare before the first deploy, and DNS
+  // records for this hostname must NOT be hand-created — wrangler attaches
+  // the custom domain itself (it fails on a pre-existing CNAME).
+  "routes": [{ "pattern": "majiphaneer.com", "custom_domain": true }]
+}

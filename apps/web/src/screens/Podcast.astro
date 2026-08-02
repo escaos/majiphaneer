@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+import { getContent, type Locale, t } from '@majiphaneer/data';
+import Icon from '../components/Icon.astro';
+import Base from '../layouts/Base.astro';
+import { podcastJsonLd } from '../lib/jsonld.ts';
+import { photoById } from '../lib/photos.ts';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { podcast } = getContent(locale);
+const portrait = photoById('denim-laughing');
+const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
+
+const platforms = [
+  { url: podcast.spotifyUrl, label: t(locale, 'podcast.spotify'), icon: 'headphones' },
+  { url: podcast.youtubeUrl, label: t(locale, 'podcast.youtube'), icon: 'play' },
+  { url: podcast.appleUrl, label: t(locale, 'podcast.apple'), icon: 'mic' },
+] as const;
+
+const availablePlatforms = platforms.filter((p) => p.url !== '');
+---
+
+<Base locale={locale} page="podcast" jsonLd={[podcastJsonLd(origin, locale)]}>
+  <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
+    <div>
+      <h1 class="text-4xl">{podcast.title}</h1>
+      <p class="mt-4 font-display text-2xl text-secondary">{podcast.tagline}</p>
+      {podcast.description.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
+      {
+        availablePlatforms.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-3">
+            {availablePlatforms.map((platform) => (
+              <a
+                href={platform.url}
+                rel="noopener"
+                class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
+              >
+                <Icon name={platform.icon} size={16} />
+                {platform.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+    <Image
+      src={portrait.image}
+      alt={portrait.alt[locale]}
+      widths={[480, 800]}
+      sizes="(min-width: 768px) 40vw, 100vw"
+      loading="eager"
+      class="h-auto w-full self-start rounded-xl"
+    />
+  </section>
+
+  {
+    podcast.episodes.length > 0 && (
+      <section class="mx-auto max-w-5xl px-4 pt-16">
+        <h2 class="text-3xl">{podcast.episodesTitle}</h2>
+        <ul class="mt-6 grid gap-3">
+          {podcast.episodes.map((episode) => (
+            <li>
+              <a
+                href={episode.url}
+                rel="noopener"
+                class="flex items-center gap-3 rounded-xl border border-border p-4 transition-colors hover:bg-surface"
+              >
+                <Icon name="play" size={18} class="text-secondary" />
+                {episode.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Base>
