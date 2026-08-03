@@ -41,16 +41,16 @@
    Light values are the originals; dark values are derived equivalents in the
    same calm hue family. data-theme is stamped on <html> before first paint. */
 :root {
-  --bg: #ebeae5; /* blanco cálido — fondo principal */
+  --bg: #f8f6f2; /* warm off-white — editorial base (per art direction) */
   --surface: #cccac3; /* gris marfil — secciones/tarjetas */
   --soft: #c3cccf; /* azul hielo — fondos suaves */
-  --border: #cfcccc; /* gris perla — bordes/áreas secundarias */
+  --border: #e2ded6; /* warm hairline borders */
   --accent: #a9aea5; /* verde salvia — botones secundarios/acentos */
-  --highlight: #e9e8dc; /* crema arena — bloques destacados */
+  --highlight: #efece4; /* crema arena — bloques destacados */
   --secondary: #aab3b6; /* azul grisáceo — botones/iconos/títulos secundarios */
-  --alt: #e0e1e1; /* gris muy claro — fondo alternativo */
-  --ink: #3b3b3b; /* texto principal */
-  --muted: #6a6a6a; /* texto secundario */
+  --alt: #f1efe9; /* fondo alternativo */
+  --ink: #2e2c28; /* texto principal — rich warm near-black */
+  --muted: #6f6b64; /* texto secundario */
   --on-accent: #2f312c; /* texto sobre botones sage (accesible en ambos temas) */
 }
 
@@ -132,15 +132,114 @@
    everything. Reduced-motion users get content with no movement. */
 html[data-js] .reveal {
   opacity: 0;
-  translate: 0 28px;
+  translate: 0 36px;
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html[data-js] .reveal.is-visible {
   opacity: 1;
   translate: 0 0;
+}
+
+/* Cinematic image reveal: unmasks with a slow settle from a gentle zoom. */
+html[data-js] .reveal-clip {
+  opacity: 0.2;
+  scale: 1.08;
+  clip-path: inset(10% 4% 10% 4%);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    scale 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-js] .reveal-clip.is-visible {
+  opacity: 1;
+  scale: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-js] .reveal-clip {
+    opacity: 1;
+    scale: none;
+    clip-path: none;
+    transition: none;
+  }
+}
+
+/* Glassmorphism navigation: transparent at the top of the page, frosted
+   glass once scrolling begins. Child colors are forced to ink on glass. */
+.site-header {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 40;
+  transition:
+    background-color 0.45s ease,
+    color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.site-header.is-glass {
+  background-color: color-mix(in srgb, var(--bg) 72%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 9%, transparent);
+  color: var(--ink);
+}
+
+.site-header.is-glass a,
+.site-header.is-glass summary,
+.site-header.is-glass button {
+  color: var(--ink);
+}
+
+.site-header.is-glass [aria-current] {
+  background-color: color-mix(in srgb, var(--ink) 10%, transparent);
+  color: var(--ink);
+}
+
+/* Editorial link: uppercase micro-label whose underline draws itself in. */
+.link-editorial {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition: letter-spacing 0.4s ease;
+}
+
+.link-editorial::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform-origin: left;
+  scale: 0.35 1;
+  opacity: 0.35;
+  transition:
+    scale 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease;
+}
+
+a:hover .link-editorial::after,
+.link-editorial:hover::after {
+  scale: 1 1;
+  opacity: 1;
+}
+
+a:hover .link-editorial,
+.link-editorial:hover {
+  letter-spacing: 0.34em;
 }
 
 html[data-js] .reveal-d1 {
@@ -171,14 +270,20 @@ html[data-js] .reveal-d2 {
     opacity: 1;
   }
   to {
-    scale: 1;
+    scale: 1.1;
     opacity: 1;
   }
 }
 
+/* Ends at 1.1 (not 1) so the slow parallax drift never exposes the edges. */
 .hero-img {
   transform-origin: 50% 25%;
   animation: hero-settle 5.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform;
+}
+
+[data-parallax] {
+  will-change: transform;
 }
 
 /* Contextual menu: the panel drops in with a settle, items stagger in from

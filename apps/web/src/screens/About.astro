@@ -18,7 +18,7 @@ const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 <Base locale={locale} page="about" jsonLd={[personJsonLd(origin, locale)]}>
   <section class="mx-auto grid max-w-5xl gap-10 px-4 pt-12 md:grid-cols-[3fr_2fr]">
     <div class="reveal">
-      <h1 class="text-4xl">{about.title}</h1>
+      <h1 class="text-[clamp(2.75rem,7vw,5rem)] leading-[0.95]">{about.title}</h1>
       {about.intro.map((paragraph) => <p class="mt-5 text-muted">{paragraph}</p>)}
     </div>
     <Image
@@ -27,7 +27,8 @@ const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
       widths={[480, 800]}
       sizes="(min-width: 768px) 40vw, 100vw"
       loading="eager"
-      class="reveal reveal-d1 aspect-[3/2] w-full self-start rounded-2xl object-cover object-[50%_25%]"
+      class="reveal-clip aspect-[3/2] w-full self-start object-cover object-[50%_25%]"
+      data-parallax="0.05"
     />
   </section>
 

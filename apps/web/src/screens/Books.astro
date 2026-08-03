@@ -19,7 +19,7 @@ const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
 <Base locale={locale} page="books" ogType="book" jsonLd={[bookJsonLd(origin, locale)]}>
   <section class="mx-auto max-w-5xl px-4 pt-12">
-    <h1 class="reveal text-4xl">{books.title}</h1>
+    <h1 class="reveal text-[clamp(2.75rem,7vw,5rem)] leading-[0.95]">{books.title}</h1>
   </section>
 
   <section class="mx-auto grid max-w-5xl gap-10 px-4 pb-16 pt-8 md:grid-cols-[3fr_2fr]">
@@ -46,7 +46,8 @@ const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
       widths={[480, 800]}
       sizes="(min-width: 768px) 40vw, 100vw"
       loading="eager"
-      class="reveal reveal-d1 aspect-[3/2] w-full self-start rounded-2xl object-cover object-[50%_25%]"
+      class="reveal-clip aspect-[3/2] w-full self-start object-cover object-[50%_25%]"
+      data-parallax="0.05"
     />
   </section>
 

@@ -21,13 +21,7 @@ const items = PAGE_IDS.map((id) => ({
 }));
 ---
 
-<header
-  class:list={[
-    overlay
-      ? 'absolute inset-x-0 top-0 z-40 text-[#ebeae5]'
-      : 'border-b border-border bg-bg',
-  ]}
->
+<header class:list={['site-header', overlay ? 'text-[#ebeae5]' : 'text-ink']}>
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
     <a
       href={pagePath(locale, 'home')}

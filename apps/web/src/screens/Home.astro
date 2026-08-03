@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { getContent, type Locale, t } from '@majiphaneer/data';
+import { getContent, type Locale, SITE_NAME, t } from '@majiphaneer/data';
 import heroWide from '../assets/photos/LK_01734-wide.jpg';
 import Icon from '../components/Icon.astro';
 import Base from '../layouts/Base.astro';
@@ -19,33 +19,55 @@ const { home, about, contravia, books, music, gallery, contact } = getContent(lo
 const heroAlt = photoById('profile').alt;
 const origin = (Astro.site ?? new URL('http://localhost:4321')).origin;
 
-// sarahjakesroberts.com-style home: clean photo hero, statement band, video
-// (when provided), then full-bleed photo tiles that open the side pages.
+// Editorial spreads: photo + oversized title + serif deck, alternating sides.
 const sections = [
-  { href: pagePath(locale, 'about'), photo: photoById('floor-thoughtful'), title: about.title },
+  {
+    href: pagePath(locale, 'about'),
+    photo: photoById('floor-thoughtful'),
+    title: about.title,
+    phrase: t(locale, 'cta.story'),
+    focus: '50% 25%',
+  },
   {
     href: pagePath(locale, 'contravia'),
     photo: photoById('denim-laughing'),
     title: contravia.title,
+    phrase: contravia.tagline,
+    focus: '50% 25%',
   },
   {
     href: pagePath(locale, 'books'),
     photo: photoById('black-ruffles'),
     title: books.title,
+    phrase: books.book.tagline,
     focus: '50% 12%',
   },
-  { href: pagePath(locale, 'music'), photo: photoById('denim-table'), title: music.title },
-  { href: pagePath(locale, 'gallery'), photo: photoById('suit-standing'), title: gallery.title },
+  {
+    href: pagePath(locale, 'music'),
+    photo: photoById('denim-table'),
+    title: music.title,
+    phrase: music.intro[0] ?? t(locale, 'music.soon'),
+    focus: '50% 25%',
+  },
+  {
+    href: pagePath(locale, 'gallery'),
+    photo: photoById('suit-standing'),
+    title: gallery.title,
+    phrase: gallery.intro,
+    focus: '50% 25%',
+  },
   {
     href: pagePath(locale, 'contact'),
     photo: photoById('stool-seated'),
     title: contact.invitationsTitle,
+    phrase: contact.invitationsTagline,
+    focus: '50% 25%',
   },
 ];
 ---
 
 <Base locale={locale} page="home" heroOverlay jsonLd={[personJsonLd(origin, locale)]}>
-  <section class="relative h-[calc(58vh+4.75rem)] min-h-[496px] overflow-hidden">
+  <section class="relative h-[100svh] min-h-[560px] overflow-hidden">
     <Image
       src={heroWide}
       alt={heroAlt[locale]}
@@ -54,9 +76,10 @@ const sections = [
       loading="eager"
       fetchpriority="high"
       class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_20%]"
+      data-parallax="0.08"
     />
     <div
-      class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#20221f]/45 to-transparent"
+      class="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#20221f]/45 to-transparent"
     >
     </div>
     <div
@@ -67,43 +90,47 @@ const sections = [
       class="pointer-events-none absolute inset-y-0 right-0 w-[22%] backdrop-blur-md [mask-image:linear-gradient(to_left,black_55%,transparent)]"
     >
     </div>
+    <a
+      href="#masthead"
+      class="scroll-cue absolute inset-x-0 bottom-8 z-10 mx-auto flex w-max flex-col items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.35em] text-[#ebeae5]/90 transition-colors hover:text-[#ebeae5]"
+    >
+      {t(locale, 'cta.more')}
+      <Icon name="chevronDown" size={30} />
+    </a>
   </section>
 
-  <section class="bg-highlight px-4 py-14 text-center">
-    <div class="mx-auto max-w-6xl">
-      <h1
-        class="reveal mx-auto font-hero text-[clamp(0.95rem,2.5vw,1.9rem)] font-bold normal-case leading-[1.2] tracking-normal"
+  <section id="masthead" class="mx-auto max-w-[90rem] scroll-mt-24 px-5 pb-6 pt-24 md:px-10">
+    <p class="reveal text-xs font-semibold uppercase tracking-[0.4em] text-secondary">
+      {t(locale, 'footer.tagline')}
+    </p>
+    <h1
+      class="reveal mt-6 font-display text-[clamp(3rem,11vw,9.5rem)] leading-[0.92] tracking-tight"
+    >
+      {SITE_NAME}
+    </h1>
+    <div class="mt-10 grid gap-10 md:grid-cols-12">
+      <p
+        class="reveal reveal-d1 font-serif text-2xl italic leading-relaxed text-muted md:col-span-6 md:col-start-6"
       >
         {home.heroIntro[0]}
-      </h1>
-      <div class="reveal reveal-d1 mt-6 flex flex-wrap justify-center gap-3">
-        <a
-          href={pagePath(locale, 'books')}
-          class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-on-accent transition-opacity hover:opacity-90"
-        >
-          {t(locale, 'cta.book')}
-        </a>
-        <a
-          href={pagePath(locale, 'contravia')}
-          class="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-semibold transition-colors hover:bg-surface"
-        >
-          {t(locale, 'cta.podcast')}
-        </a>
-      </div>
-      <a
-        href="#sections"
-        class="scroll-cue reveal reveal-d2 mt-10 inline-flex flex-col items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.35em] text-muted transition-colors hover:text-ink"
-      >
-        {t(locale, 'cta.more')}
-        <Icon name="chevronDown" size={30} />
+      </p>
+    </div>
+    <div class="reveal reveal-d2 mt-10 flex flex-wrap gap-10 md:justify-end">
+      <a href={pagePath(locale, 'books')} class="link-editorial text-ink">
+        {t(locale, 'cta.book')}
+        <Icon name="arrowRight" size={14} />
+      </a>
+      <a href={pagePath(locale, 'contravia')} class="link-editorial text-ink">
+        {t(locale, 'cta.podcast')}
+        <Icon name="arrowRight" size={14} />
       </a>
     </div>
   </section>
 
   {
     home.welcomeVideoUrl !== '' && (
-      <section class="bg-bg">
-        <div class="mx-auto aspect-video w-full max-w-5xl">
+      <section class="mx-auto max-w-[90rem] px-5 pt-16 md:px-10">
+        <div class="aspect-video w-full overflow-hidden rounded-none">
           <iframe
             src={home.welcomeVideoUrl}
             title={home.welcomeTitle}
@@ -116,25 +143,56 @@ const sections = [
     )
   }
 
-  <div id="sections" class="grid scroll-mt-4 md:grid-cols-2">
+  <div id="sections" class="mx-auto max-w-[90rem] scroll-mt-24 px-5 md:px-10">
     {
-      sections.map((section) => (
-        <a href={section.href} class="reveal group relative block overflow-hidden">
-          <Image
-            src={section.photo.image}
-            alt={section.photo.alt[locale]}
-            widths={[600, 900, 1400]}
-            sizes="(min-width: 768px) 50vw, 100vw"
-            loading="lazy"
-            class="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            style={`object-position: ${section.focus ?? '50% 25%'}`}
-          />
-          <div class="absolute inset-0 bg-black/25 transition-colors duration-500 group-hover:bg-black/40" />
-          <div class="absolute inset-x-0 top-3/4 flex -translate-y-1/2 justify-center px-6">
-            <h2 class="text-center text-2xl text-white drop-shadow-md md:text-3xl">
+      sections.map((section, index) => (
+        <a
+          href={section.href}
+          class="group grid items-center gap-8 py-16 md:grid-cols-12 md:gap-0 md:py-24"
+        >
+          <div
+            class:list={[
+              'reveal-clip overflow-hidden',
+              index % 2 === 0 ? 'md:col-span-7 md:col-start-1' : 'md:col-span-7 md:col-start-6',
+            ]}
+          >
+            <Image
+              src={section.photo.image}
+              alt={section.photo.alt[locale]}
+              widths={[600, 900, 1400]}
+              sizes="(min-width: 768px) 58vw, 100vw"
+              loading="lazy"
+              class="aspect-[4/3] w-full scale-110 object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.16]"
+              style={`object-position: ${section.focus}`}
+              data-parallax="0.05"
+            />
+          </div>
+          <div
+            class:list={[
+              'reveal md:relative md:z-10',
+              index % 2 === 0
+                ? 'md:col-span-5 md:col-start-8 md:-ml-16 lg:-ml-24'
+                : 'md:col-span-5 md:col-start-1 md:row-start-1 md:-mr-16 md:text-right lg:-mr-24',
+            ]}
+          >
+            <p class="text-xs font-semibold uppercase tracking-[0.4em] text-secondary">
+              {String(index + 1).padStart(2, '0')}
+            </p>
+            <h2 class="mt-4 font-display text-[clamp(2.4rem,6vw,5rem)] leading-[0.95]">
               {section.title}
-              <span class="mx-auto mt-4 block h-px w-16 bg-white/80" />
             </h2>
+            <p
+              class:list={[
+                'mt-6 max-w-md font-serif text-xl italic leading-relaxed text-muted',
+                index % 2 === 1 ? 'md:ml-auto' : '',
+              ]}
+            >
+              {section.phrase}
+            </p>
+            <span class="link-editorial mt-8 text-ink">
+              {t(locale, 'cta.explore')}
+              <Icon name="arrowRight" size={14} />
+            </span>
           </div>
         </a>
       ))
