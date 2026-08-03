@@ -11,9 +11,12 @@
   },
   // Fallback URL only; safe because robots.txt is host-guarded and _headers
   // sends X-Robots-Tag: noindex for *.workers.dev.
-  "workers_dev": true,
-  // The zone must be active on Cloudflare before the first deploy, and DNS
-  // records for this hostname must NOT be hand-created — wrangler attaches
-  // the custom domain itself (it fails on a pre-existing CNAME).
-  "routes": [{ "pattern": "majiphaneer.com", "custom_domain": true }]
+  "workers_dev": true
+  // DEPLOY ORDER (2026 dashboard): the first deploy runs on workers.dev only.
+  // Then attach majiphaneer.com in the dashboard: Workers & Pages → this
+  // worker → Domains tab → connect existing domain (that flow creates the
+  // zone and walks through the Namecheap nameserver change). Once the domain
+  // is attached and active, restore the line below so config stays the
+  // source of truth. Never hand-create DNS records for the apex.
+  // "routes": [{ "pattern": "majiphaneer.com", "custom_domain": true }]
 }
