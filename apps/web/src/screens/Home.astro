@@ -39,8 +39,8 @@ const sections = [
 ];
 ---
 
-<Base locale={locale} page="home" jsonLd={[personJsonLd(origin, locale)]}>
-  <section class="relative h-[58vh] min-h-[420px] overflow-hidden">
+<Base locale={locale} page="home" heroOverlay jsonLd={[personJsonLd(origin, locale)]}>
+  <section class="relative h-[calc(58vh+4.75rem)] min-h-[496px] overflow-hidden">
     <Image
       src={heroWide}
       alt={heroAlt[locale]}
@@ -50,6 +50,10 @@ const sections = [
       fetchpriority="high"
       class="hero-img absolute inset-0 h-full w-full object-cover object-[50%_20%]"
     />
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#20221f]/45 to-transparent"
+    >
+    </div>
     <div
       class="pointer-events-none absolute inset-y-0 left-0 w-[22%] backdrop-blur-md [mask-image:linear-gradient(to_right,black_55%,transparent)]"
     >

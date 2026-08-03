@@ -9,9 +9,10 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 interface Props {
   locale: Locale;
   page: PageId;
+  overlay?: boolean;
 }
 
-const { locale, page } = Astro.props;
+const { locale, page, overlay = false } = Astro.props;
 
 const items = PAGE_IDS.map((id) => ({
   id,
@@ -20,18 +21,36 @@ const items = PAGE_IDS.map((id) => ({
 }));
 ---
 
-<header class="border-b border-border bg-bg">
+<header
+  class:list={[
+    overlay
+      ? 'absolute inset-x-0 top-0 z-40 text-[#ebeae5]'
+      : 'border-b border-border bg-bg',
+  ]}
+>
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
-    <a href={pagePath(locale, 'home')} class="font-display text-[2rem] uppercase tracking-widest">
+    <a
+      href={pagePath(locale, 'home')}
+      class="font-display text-[2rem] uppercase tracking-widest text-inherit"
+    >
       {SITE_NAME}
     </a>
     <div class="flex items-center gap-3">
-      <LanguageSwitcher locale={locale} page={page} />
-      <ThemeToggle client:idle label={t(locale, 'theme.toggle')} />
+      <LanguageSwitcher locale={locale} page={page} tone={overlay ? 'light' : 'default'} />
+      <ThemeToggle
+        client:idle
+        label={t(locale, 'theme.toggle')}
+        tone={overlay ? 'light' : 'default'}
+      />
       <details class="relative">
         <summary
           aria-label={t(locale, 'nav.menu')}
-          class="menu-toggle flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full text-muted transition-colors hover:bg-alt hover:text-ink [&::-webkit-details-marker]:hidden"
+          class:list={[
+            'menu-toggle flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full transition-colors [&::-webkit-details-marker]:hidden',
+            overlay
+              ? 'text-[#ebeae5]/85 hover:bg-[#ebeae5]/15 hover:text-[#ebeae5]'
+              : 'text-muted hover:bg-alt hover:text-ink',
+          ]}
         >
           <Icon name="menu" size={20} />
         </summary>

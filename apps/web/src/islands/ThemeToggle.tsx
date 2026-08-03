@@ -4,11 +4,12 @@ import { THEME_KEY } from '../lib/theme.ts';
 
 interface Props {
   label: string;
+  tone?: 'default' | 'light';
 }
 
 // The inline head script has already stamped data-theme before hydration;
 // this island only flips it and persists the explicit choice.
-export default function ThemeToggle({ label }: Props) {
+export default function ThemeToggle({ label, tone = 'default' }: Props) {
   const [theme, setTheme] = useState<string>(() =>
     typeof window === 'undefined' ? 'light' : document.documentElement.dataset.theme || 'light',
   );
@@ -30,7 +31,11 @@ export default function ThemeToggle({ label }: Props) {
       aria-label={label}
       title={label}
       onClick={toggle}
-      class="inline-flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-alt hover:text-ink"
+      class={
+        tone === 'light'
+          ? 'inline-flex h-9 w-9 items-center justify-center rounded-full text-[#ebeae5]/85 transition-colors hover:bg-[#ebeae5]/15 hover:text-[#ebeae5]'
+          : 'inline-flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-alt hover:text-ink'
+      }
     >
       <svg
         viewBox="0 0 24 24"

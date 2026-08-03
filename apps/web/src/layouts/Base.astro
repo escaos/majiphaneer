@@ -13,9 +13,18 @@ interface Props {
   noindex?: boolean;
   ogType?: 'website' | 'book';
   jsonLd?: Record<string, unknown>[];
+  /** Float a transparent light-toned header over the page's hero image. */
+  heroOverlay?: boolean;
 }
 
-const { locale, page, noindex = false, ogType = 'website', jsonLd = [] } = Astro.props;
+const {
+  locale,
+  page,
+  noindex = false,
+  ogType = 'website',
+  jsonLd = [],
+  heroOverlay = false,
+} = Astro.props;
 
 const content = getContent(locale);
 const meta = content.meta[page];
@@ -99,7 +108,7 @@ const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
     >
       {t(locale, 'skip.content')}
     </a>
-    <Header locale={locale} page={page} />
+    <Header locale={locale} page={page} overlay={heroOverlay} />
     <main id="main">
       <slot />
     </main>

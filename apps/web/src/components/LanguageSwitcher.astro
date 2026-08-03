@@ -6,9 +6,11 @@ import { pagePath } from '../lib/paths.ts';
 interface Props {
   locale: Locale;
   page: PageId;
+  tone?: 'default' | 'light';
 }
 
-const { locale, page } = Astro.props;
+const { locale, page, tone = 'default' } = Astro.props;
+const light = tone === 'light';
 ---
 
 <nav aria-label={t(locale, 'lang.label')}>
@@ -22,7 +24,13 @@ const { locale, page } = Astro.props;
             aria-current={l === locale ? 'true' : undefined}
             class:list={[
               'inline-block rounded-md px-2 py-1 transition-colors',
-              l === locale ? 'bg-surface font-semibold text-ink' : 'text-muted hover:text-ink',
+              l === locale
+                ? light
+                  ? 'bg-[#ebeae5]/25 font-semibold text-[#ebeae5]'
+                  : 'bg-surface font-semibold text-ink'
+                : light
+                  ? 'text-[#ebeae5]/70 hover:text-[#ebeae5]'
+                  : 'text-muted hover:text-ink',
             ]}
           >
             {l}
