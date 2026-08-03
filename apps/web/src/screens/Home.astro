@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { getContent, type Locale, t } from '@majiphaneer/data';
 import heroWide from '../assets/photos/LK_01734-wide.jpg';
+import Icon from '../components/Icon.astro';
 import Base from '../layouts/Base.astro';
 import { personJsonLd } from '../lib/jsonld.ts';
 import { pagePath } from '../lib/paths.ts';
@@ -80,6 +81,13 @@ const sections = [
           {t(locale, 'cta.podcast')}
         </a>
       </div>
+      <a
+        href="#sections"
+        class="scroll-cue reveal reveal-d2 mt-10 inline-flex flex-col items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.35em] text-muted transition-colors hover:text-ink"
+      >
+        {t(locale, 'cta.more')}
+        <Icon name="chevronDown" size={30} />
+      </a>
     </div>
   </section>
 
@@ -99,7 +107,7 @@ const sections = [
     )
   }
 
-  <div class="grid gap-1 pt-1 md:grid-cols-2">
+  <div id="sections" class="grid scroll-mt-4 gap-1 pt-1 md:grid-cols-2">
     {
       sections.map((section) => (
         <a href={section.href} class="reveal group relative block overflow-hidden">
