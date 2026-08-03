@@ -10,6 +10,16 @@ export interface Photo {
 // Portrait session photos by Lauren King Photography, provided by Maji.
 export const PHOTOS: Photo[] = [
   {
+    id: 'black-ruffles',
+    file: 'black-ruffles.jpg',
+    alt: {
+      es: 'Maji Phaneer con chaqueta negra de volantes, extendiendo la mano hacia la cámara',
+      en: 'Maji Phaneer in a black ruffled jacket, reaching a hand toward the camera',
+      fr: 'Maji Phaneer en veste noire à volants, tendant la main vers la caméra',
+      de: 'Maji Phaneer in schwarzer Rüschenjacke, die Hand zur Kamera ausgestreckt',
+    },
+  },
+  {
     id: 'beige-smile',
     file: 'LK_01365.jpg',
     alt: {
