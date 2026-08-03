@@ -71,3 +71,4 @@ The UI hides each of these until a real value lands in
   alt coverage are unit-tested.
 - Budgets (HTML < 15/20 KB gz, page JS < 10/35 KB gz, chunk < 40 KB gz) fail
   CI on regression.
+- Also the AccountId and the API Token
