@@ -3,6 +3,7 @@ import { getContent, LOCALES, type Locale, type PageId, SITE_NAME, t } from '@ma
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { webSiteJsonLd } from '../lib/jsonld.ts';
+import { ogImageFor } from '../lib/og.ts';
 import { pagePath } from '../lib/paths.ts';
 import { THEME_KEY } from '../lib/theme.ts';
 import '../styles/global.css';
@@ -40,13 +41,22 @@ const xDefault = toAbsolute(pagePath('es', page));
 
 const OG_LOCALES: Record<Locale, string> = { es: 'es_ES', en: 'en_US', fr: 'fr_FR', de: 'de_DE' };
 
+// Per-page 1200×630 share image, generated at build from the page's photo.
+const ogImage = await ogImageFor(page);
+const ogImageUrl = `${origin}${ogImage.path}`;
+const ogImageAlt = ogImage.alt[locale];
+
 // Stamps data-theme on <html> before first paint. The brand palette (light)
 // is ALWAYS the first-visit default — dark is explicit opt-in via the toggle
 // only, so the design-system colors are what every new visitor sees.
 // data-js gates the scroll-reveal hidden state: no JS → nothing ever hides.
 const themeScript = `(()=>{var d=document.documentElement;d.dataset.js='1';try{var t=localStorage.getItem('${THEME_KEY}');d.dataset.theme=t==='dark'?'dark':'light'}catch(e){d.dataset.theme='light'}})()`;
 
-const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
+// Every structured-data block gets the page photo unless it declares its own,
+// so Person/Book/PodcastSeries rich results can show an image.
+const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd].map((block) =>
+  'image' in block ? block : { ...block, image: ogImageUrl },
+);
 ---
 
 <!doctype html>
@@ -87,9 +97,10 @@ const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
     <meta property="og:title" content={meta.title} />
     <meta property="og:description" content={meta.description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={`${origin}/og.jpg`} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content={OG_LOCALES[locale]} />
     {
       LOCALES.filter((l) => l !== locale).map((l) => (
@@ -97,6 +108,11 @@ const jsonLdBlocks = [webSiteJsonLd(origin, locale), ...jsonLd];
       ))
     }
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+    <meta name="theme-color" content="#ebeae5" />
     {jsonLdBlocks.map((block) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
